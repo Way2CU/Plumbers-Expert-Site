@@ -1,6 +1,6 @@
 /**
  * Main JavaScript
- * Site Name
+ * Tow.Expert
  *
  * Copyright (c) 2014. by Way2CU, http://way2cu.com
  * Authors:
