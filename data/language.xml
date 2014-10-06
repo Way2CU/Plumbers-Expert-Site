@@ -2,6 +2,6 @@
 <!DOCTYPE document SYSTEM "../units/schema/language.dtd">
 <document>
 	<language name="English" short="en">
-		<constant name="site_title">Site title</constant>
+		<constant name="site_title">Tow.Expert</constant>
 	</language>
 </document>
