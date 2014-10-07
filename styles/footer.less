@@ -19,3 +19,59 @@ footer div.inner_wrap {
 footer div.inner_wrap.copyright {
 	min-height: 300px;
 }
+
+footer div.inner_wrap div.content_container {
+	max-width: 700px;
+	position: absolute;
+	top: 55px;
+	right: 400px;
+	text-align: right;
+	color: @color_title;
+}
+
+footer div.inner_wrap div.content_container h2 {
+	margin: 0px;
+}
+
+footer div.inner_wrap div.content_container span {
+	display: block;
+	font-size: 1.2rem;
+}
+
+footer div.inner_wrap div.content_container div {
+	display: inline-block;
+	width: 200px;
+	height: 190px;
+
+	margin-top: 10px;
+	margin-right: auto;
+	padding: 10px;
+
+	background-color: #33485d;
+	background-image: 
+		url(../images/mobile_friendly.svg),
+		url(../images/qr_code.svg);
+	background-repeat: no-repeat;
+	background-position: center 175px, center 10px;
+	background-size: 70% auto
+}
+
+footer div.inner_wrap div.content_container:hover ~ div.mobile_pic {
+	background-image: url(../images/scan_qr.jpg);
+}
+
+footer div.inner_wrap div.mobile_pic {
+	width: 212px;
+	height: 375px;
+
+	position: absolute;
+	top: 133px;
+	right: 114px;
+
+	background-image: url(../images/mobile_mockup.jpg);
+	background-repeat: no-repeat;
+	background-position: center top;
+	background-size: auto 375px;
+
+	transition: 0.5s all;
+}
