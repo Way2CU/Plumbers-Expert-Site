@@ -9,5 +9,7 @@
 		>
 			<cms:text constant="site_title"/>
 		</a>
+
+		<cms:template file="parts/search_form.xml"/>
 	</header>
 </document>
