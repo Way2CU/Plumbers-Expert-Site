@@ -42,6 +42,16 @@ header form {
 	display: block;
 }
 
+header form div.service_type label {
+	display: inline-block;
+	margin-right: 5px;
+	font-size: 0px;
+}
+
+header form div.service_type label:last-of-type {
+	margin-right: 0px;
+}
+
 header form div.service_type input {
 	display: none;
 }
@@ -51,8 +61,6 @@ header form div.service_type span {
 	height: 50px;
 	width: 70px;
 
-	margin-right: 5px;
-
 	border-radius: 3px;
 	background-color: fadeout(@color_features_text, 60%);
 	background-image: url(../images/service_type_icons.svg);
@@ -61,10 +69,6 @@ header form div.service_type span {
 
 	font-size: 0px;
 	transition: all 0.3s;
-}
-
-header form div.service_type label:last-of-type span {
-	margin-right: 0px;
 }
 
 header form div.service_type input:checked + span {
