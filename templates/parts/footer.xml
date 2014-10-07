@@ -2,13 +2,13 @@
 <!DOCTYPE document SYSTEM "../units/schema/language.dtd">
 <document>
 	<footer>
-		<div class="wrap footer_bg">
+		<div class="inner_wrap">
 			<h3><cms:text constant="footer_anywhere_anytime"/></h3>
-
 			<span><cms:text constant="get_tow"/></span>
-
 			<span></span>
+		</div>
 
+		<div class="inner_wrap copyright">
 		</div>
 	</footer>
 </document>
