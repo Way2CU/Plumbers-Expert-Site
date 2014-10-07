@@ -6,4 +6,62 @@
  * Authors: Mladen Mijatov
  */
 
+/**
+ * Search form
+ */
+header form {
+	display: block;
+}
 
+header form div.service_type input {
+	display: none;
+}
+
+header form div.service_type span {
+	display: inline-block;
+	height: 50px;
+	width: 70px;
+
+	margin-right: 5px;
+
+	border-radius: 3px;
+	background-color: fadeout(@color_features_text, 60%);
+	background-image: url(../images/service_type_icons.svg);
+	background-size: 420px auto;
+	background-repeat: no-repeat;
+
+	font-size: 0px;
+	transition: all 0.3s;
+}
+
+header form div.service_type label:last-of-type span {
+	margin-right: 0px;
+}
+
+header form div.service_type input:checked + span {
+	background-color: @color_selection;
+}
+
+header form div.service_type input[value=car] + span {
+	background-position: -70px 0px;
+}
+
+header form div.service_type input[value=car]:checked + span {
+	background-position: 0px 0px;
+}
+
+header form div.service_type input[value=motorcycle] + span {
+	background-position: -210px 0px;
+}
+
+header form div.service_type input[value=motorcycle]:checked + span {
+	background-position: -140px 0px;
+}
+
+header form div.service_type input[value=truck] + span {
+	background-position: -350px 0px;
+}
+
+header form div.service_type input[value=truck]:checked + span {
+	background-position: -280px 0px;
+}
