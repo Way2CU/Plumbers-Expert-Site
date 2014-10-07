@@ -6,28 +6,52 @@
  * Authors: Mladen Mijatov, Khalid Sawalhi
  */
 
+.service_type_icon_size(@height) {
+	@width: 1.4 * @height;
+	width: unit(@width, px);
+	height: unit(@height, px);
+	background-size: unit(@width * 6, px) unit(@height, px);
+}
+
+.service_type_icon_position(@height, @index, @selected) when (@selected = true) {
+	@width: 1.4 * @height;
+	@real_index: @index * 2;
+	background-position: unit(-@real_index * @width, px) 0px;
+}
+
+.service_type_icon_position(@height, @index, @selected) when (default()) {
+	@width: 1.4 * @height;
+	@real_index: @index * 2;
+	background-position: unit(-(@real_index + 1) * @width, px) 0px;
+}
+
 header {
 	height:200px;
-	background-image: url(../images/header-background.jpg);
+	background-image: url(../images/header_background.jpg);
 	background-repeat: no-repeat;
 	background-size: 100% auto;
 	background-position: center center;
 }
 
 header a.logo {
-	display: inline-block;
-	padding-left: 60px;
-	padding-top: 20px;
-	padding-bottom: 20px;
+	position: absolute;
+	top: 10px;
+	left: 0px;
 
-	background-image: url(http://localhost:8080/site/images/logo.svg);
+	padding-left: 55px;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+
+	background-image: url(../images/logo.svg);
 	background-repeat: no-repeat;
 	background-size: auto 45px;
 	background-position: left center;
 
 	color: white;
-	font-size: 1.8rem;
-	text-align: left;
+	font-size: 2rem;
+	font-weight: bold;
+	font-family: Roboto Slab;
+	line-height: 100%;
 	text-decoration: none;
 	text-transform: uppercase;
 }
@@ -37,12 +61,25 @@ header a.logo {
  */
 header form {
 	display: block;
+	position: absolute;
+	right: 0px;
+	top: 20px;
+}
+
+header form label {
+	display: inline-block;
+	vertical-align: top;
+}
+
+header form div.service_type {
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 40px;
+	font-size: 0px;
 }
 
 header form div.service_type label {
-	display: inline-block;
 	margin-right: 5px;
-	font-size: 0px;
 }
 
 header form div.service_type label:last-of-type {
@@ -55,14 +92,13 @@ header form div.service_type input {
 
 header form div.service_type span {
 	display: inline-block;
-	height: 50px;
-	width: 70px;
+	.service_type_icon_size(41px);
 
-	border-radius: 3px;
-	background-color: fadeout(@color_features_text, 60%);
+	border-radius: @control_border_radius;
+	background-color: fadeout(@color_background, 50%);
 	background-image: url(../images/service_type_icons.svg);
-	background-size: 420px auto;
 	background-repeat: no-repeat;
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 
 	font-size: 0px;
 	transition: all 0.3s;
@@ -73,25 +109,58 @@ header form div.service_type input:checked + span {
 }
 
 header form div.service_type input[value=car] + span {
-	background-position: -70px 0px;
+	.service_type_icon_position(41, 0, false);
 }
 
 header form div.service_type input[value=car]:checked + span {
-	background-position: 0px 0px;
+	.service_type_icon_position(41, 0, true);
 }
 
 header form div.service_type input[value=motorcycle] + span {
-	background-position: -210px 0px;
+	.service_type_icon_position(41, 1, false);
 }
 
 header form div.service_type input[value=motorcycle]:checked + span {
-	background-position: -140px 0px;
+	.service_type_icon_position(41, 1, true);
 }
 
 header form div.service_type input[value=truck] + span {
-	background-position: -350px 0px;
+	.service_type_icon_position(41, 2, false);
 }
 
 header form div.service_type input[value=truck]:checked + span {
-	background-position: -280px 0px;
+	.service_type_icon_position(41, 2, true);
+}
+
+header form > label {
+	border-radius: @control_border_radius 0px 0px @control_border_radius;
+	background-color: @color_background;
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+header form label svg {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+}
+
+header form label input {
+	padding: 10px;
+	border: 0px;
+}
+
+header form div.controls {
+	display: inline-block;
+}
+
+header form div.controls button {
+	display: inline-block;
+	padding: 10px 20px;
+
+	border: 0px;
+	border-radius: 0px @control_border_radius @control_border_radius 0px;
+	background-color: @color_button;
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+
+	color: white;
 }
