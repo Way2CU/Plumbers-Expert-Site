@@ -2,6 +2,7 @@
 <!DOCTYPE document SYSTEM "../../units/schema/language.dtd">
 <document>
 	<form method="get" action="url_Make('', 'search')" cms:eval="action">
+		<!-- Service type -->
 		<div class="service_type">
 			<label>
 				<input type="radio" name="type" value="car" checked="checked"/>
@@ -17,6 +18,7 @@
 			</label>
 		</div>
 
+		<!-- Search query -->
 		<label>
 			<svg viewBox="0 0 113 100"><use xlink:href="#icon-home"/></svg>
 			<input type="search" name="query"/>
