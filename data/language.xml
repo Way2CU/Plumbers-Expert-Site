@@ -3,5 +3,10 @@
 <document>
 	<language name="English" short="en">
 		<constant name="site_title">Tow.Expert</constant>
+
+		<!-- Service types -->
+		<constant name="type_car">Car</constant>
+		<constant name="type_motorcycle">Motorcycle</constant>
+		<constant name="type_truck">Truck</constant>
 	</language>
 </document>
