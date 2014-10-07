@@ -4,7 +4,7 @@
 	<header>
 		<div class="inner_wrap">
 			<a
-				href="url_Make('', 'home')"
+				href="url_Make()"
 				class="logo"
 				cms:eval="href"
 			>
