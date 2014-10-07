@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document SYSTEM "../units/schema/language.dtd">
+<document>
+	<header>
+		<a
+			href="url_Make('', 'home')"
+			class="logo"
+			cms:eval="href"
+		>
+			<cms:text constant="site_title"/>
+		</a>
+	</header>
+</document>
