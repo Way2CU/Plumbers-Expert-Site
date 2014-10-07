@@ -6,7 +6,7 @@
  * Authors: Mladen Mijatov
  */
 
-@import url(http://fonts.googleapis.com/css?family=Roboto:400;Roboto+Slab:700);
+@import url(http://fonts.googleapis.com/css?family=Roboto:400|Roboto+Slab:700);
 
 @color_title: #33485d;
 @color_button: #287fb8;
@@ -15,6 +15,7 @@
 @color_features_text: #7e8b8c;
 @color_footer: #ababab;
 @color_background: white;
+@control_border_radius: 4px;
 
 @import "header.less";
 @import "footer.less";
@@ -22,6 +23,11 @@
 body {
 	background-color: @color_background;
 
+	color: @color_text;
+	font-family: Roboto;
+}
+
+button, input {
 	color: @color_text;
 	font-family: Roboto;
 }
