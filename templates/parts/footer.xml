@@ -3,9 +3,12 @@
 <document>
 	<footer>
 		<div class="inner_wrap">
-			<h3><cms:text constant="footer_anywhere_anytime"/></h3>
-			<span><cms:text constant="get_tow"/></span>
-			<span></span>
+			<div class="content_container">
+				<h2><cms:text constant="footer_anywhere_anytime"/></h2>
+				<span><cms:text constant="get_tow"/></span>
+				<div></div>
+			</div>
+			<div class="mobile_pic"></div>
 		</div>
 
 		<div class="inner_wrap copyright">
