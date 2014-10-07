@@ -8,5 +8,9 @@
 		<constant name="type_car">Car</constant>
 		<constant name="type_motorcycle">Motorcycle</constant>
 		<constant name="type_truck">Truck</constant>
+
+		<!-- footer -->
+		<constant name="footer_anywhere_anytime">from anywhere any time from any phone</constant>
+		<constant name="get_tow">Get: tow.expert on your mobile device!</constant>
 	</language>
 </document>
