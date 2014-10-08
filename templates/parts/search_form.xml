@@ -41,7 +41,14 @@
 		<span><cms:text constant="label_search_query"/></span>
 		<label>
 			<svg viewBox="0 0 113 100"><use xlink:href="#icon-home"/></svg>
-			<input type="search" name="query" placeholder="search_example" cms:constant="placeholder"/>
+			<input
+				type="search"
+				name="query"
+				value="isset($_REQUEST['query']) ? fix_chars($_REQUEST['query']) : false"
+				placeholder="search_example"
+				cms:constant="placeholder"
+				cms:optional="value"
+				/>
 
 			<!-- Locate by GPS button -->
 			<a href="javascript: void(0);" class="gps">
