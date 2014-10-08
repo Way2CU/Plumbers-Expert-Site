@@ -8,6 +8,7 @@
 		<!-- Form labels -->
 		<constant name="label_service_type">Vehicle type:</constant>
 		<constant name="label_search_query">Search by address, zip code or company:</constant>
+		<constant name="search_example">eg. 2033, new york</constant>
 
 		<!-- Service types -->
 		<constant name="type_car">Car</constant>
@@ -15,11 +16,13 @@
 		<constant name="type_truck">Truck</constant>
 
 		<!-- Footer -->
-		<constant name="footer_anywhere_anytime">From anywhere any time from any phone</constant>
-		<constant name="get_tow">Get: tow.expert on your mobile device!</constant>
-		<constant name="add_company">Add your company</constant>
+		<constant name="footer_call_to_action">From anywhere any time from any phone.</constant>
+		<constant name="footer_call_to_action2">Get: tow.expert on your mobile device!</constant>
+		<constant name="add_company">Add your company,</constant>
 		<constant name="contactus_link">Contact us</constant>
-		<constant name="get_company_listed">Contact us and get your company listed</constant>
-		<constant name="copyright">Designed and developed by way2cu</constant>
+		<constant name="get_company_listed">Contact us and get your company listed!</constant>
+		<constant name="copyright"><![CDATA[Designed and developed by&nbsp;]]></constant>
+		<constant name="copyright_company">Way2CU</constant>
+		<constant name="copyright_rights">All rights reserved.</constant>
 	</language>
 </document>
