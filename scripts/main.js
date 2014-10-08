@@ -15,6 +15,7 @@ function SearchBar() {
 	self.search_form = null;
 	self.input_field = null;
 	self.gps_links = null;
+	self.vehicle_type = null;
 
 	/**
 	 * Complete object initialization.

@@ -5,7 +5,10 @@
 	<html lang="$language" cms:eval="lang">
 		<head>
 			<title>
-				<cms:raw text=" - "/>
+				<cms:if condition="isset($_REQUEST['query'])">
+					<cms:var name="fix_chars($_REQUEST['query'])"/>
+					<cms:raw text=" - "/>
+				</cms:if>
 				<cms:text constant="site_title"/>
 			</title>
 			<cms:module name="head_tag" action="print_tag"/>
