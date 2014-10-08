@@ -23,7 +23,7 @@
 		<span><cms:text constant="label_search_query"/></span>
 		<label>
 			<svg viewBox="0 0 113 100"><use xlink:href="#icon-home"/></svg>
-			<input type="search" name="query"/>
+			<input type="search" name="query" placeholder="search_example" cms:constant="placeholder"/>
 
 			<!-- Locate by GPS button -->
 			<a href="javascript: void(0);" class="gps">
