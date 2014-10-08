@@ -4,6 +4,7 @@
 	<form method="get" action="url_Make('', 'search')" cms:eval="action">
 		<!-- Service type -->
 		<div class="service_type">
+			<span><cms:text constant="label_service_type"/></span>
 			<label>
 				<input type="radio" name="type" value="car" checked="checked"/>
 				<span><cms:text constant="type_car"/></span>
@@ -19,18 +20,22 @@
 		</div>
 
 		<!-- Search query -->
+		<span><cms:text constant="label_search_query"/></span>
 		<label>
 			<svg viewBox="0 0 113 100"><use xlink:href="#icon-home"/></svg>
 			<input type="search" name="query"/>
 
 			<!-- Locate by GPS button -->
-			<a class="gps">
+			<a href="javascript: void(0);" class="gps">
 				<svg viewBox="0 0 95 100"><use xlink:href="#icon-gps"/></svg>
 			</a>
 		</label>
 
 		<div class="controls">
-			<button type="submit"><cms:text constant="search"/></button>
+			<button type="submit">
+				<cms:text constant="search"/>
+				<svg viewBox="0 0 100 100"><use xlink:href="#icon-search"/></svg>
+			</button>
 		</div>
 	</form>
 </document>
