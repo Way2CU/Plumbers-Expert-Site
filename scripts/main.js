@@ -22,11 +22,34 @@ function SearchBar() {
 	 */
 	self._init = function() {
 		self.search_form = $('header form');
-		self.input_field = self.search_form.find('input[type=search]');
-
+		self.vehicle_type = self.search_form.find('input[name=type]')
+		self.input_field = self.search_form.find('input[name=query]');
 		self.gps_links = $('a.gps');
+
+		// connect events
 		self.gps_links.click(self._handle_gps_click);
+		self.vehicle_type.change(self._handle_type_change);
 	}
+
+	/**
+	 * Handle changing vehicle type.
+	 *
+	 * @param object event
+	 */
+	self._handle_type_change = function(event) {
+		// empty search field, no need to refresh page
+		if (self.input_field.val() == '')
+			return;
+
+		// prepare data
+		var data = {
+				type: self.vehicle_type.filter(':checked').val(),
+				query: self.input_field.val()
+			};
+
+		// reload page
+		window.location = self.search_form.attr('action') + '?' + $.param(data);
+	};
 
 	/**
 	 * Handle clicking on locate link.
