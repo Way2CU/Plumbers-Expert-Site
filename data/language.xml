@@ -3,13 +3,18 @@
 <document>
 	<language name="English" short="en">
 		<constant name="site_title">Tow.Expert</constant>
+		<constant name="slogan"><![CDATA[Find towing &amp;&nbsp;roadside services.]]></constant>
+
+		<!-- Form labels -->
+		<constant name="label_service_type">Vehicle type:</constant>
+		<constant name="label_search_query">Search by address, zip code or company:</constant>
 
 		<!-- Service types -->
 		<constant name="type_car">Car</constant>
 		<constant name="type_motorcycle">Motorcycle</constant>
 		<constant name="type_truck">Truck</constant>
 
-		<!-- footer -->
+		<!-- Footer -->
 		<constant name="footer_anywhere_anytime">from anywhere any time from any phone</constant>
 		<constant name="get_tow">Get: tow.expert on your mobile device!</constant>
 	</language>
