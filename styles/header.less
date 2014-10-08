@@ -25,12 +25,34 @@
 	background-position: unit(-(@real_index + 1) * @width, px) 0px;
 }
 
+@keyframes gps_animation {
+	from { fill: transparent; }
+	to { fill: @color_button; }
+}
+
 header {
-	height:200px;
+	height: 200px;
 	background-image: url(../images/header_background.jpg);
 	background-repeat: no-repeat;
-	background-size: 100% auto;
 	background-position: center center;
+}
+
+header.home {
+	height: 600px;
+	position: relative;
+}
+
+header.home:before {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	right: 0px;
+	top: 0px;
+	content: '';
+
+	background-image: url(../images/header_shade.svg);
+	background-repeat: no-repeat;
+	background-position: right top;
 }
 
 header a.logo {
@@ -47,13 +69,38 @@ header a.logo {
 	background-size: auto 45px;
 	background-position: left center;
 
-	color: white;
+	color: @color_header_text;
 	font-size: 2rem;
 	font-weight: bold;
 	font-family: Roboto Slab;
 	line-height: 100%;
 	text-decoration: none;
 	text-transform: uppercase;
+}
+
+header.home a.logo {
+	top: 50px;
+	padding-left: 75px;
+
+	background-size: auto 65px;
+	font-size: 2.5rem;
+}
+
+header h1 {
+	display: block;
+	width: 400px;
+
+	position: absolute;
+	top: 200px;
+	left: 0px;
+
+	margin: 0px;
+	padding: 0px;
+
+	color: @color_header_text;
+	font-size: 3.2em;
+	text-transform: uppercase;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 /**
@@ -64,6 +111,21 @@ header form {
 	position: absolute;
 	right: 0px;
 	top: 20px;
+
+	color: @color_header_text;
+}
+
+header.home form {
+	top: 100px;
+}
+
+header form > span {
+	display: none;
+}
+
+header.home form > span {
+	display: block;
+	padding-bottom: 5px;
 }
 
 header form label {
@@ -75,11 +137,25 @@ header form div.service_type {
 	display: inline-block;
 	vertical-align: top;
 	margin-right: 40px;
-	font-size: 0px;
+}
+
+header.home form div.service_type {
+	display: block;
+	margin-bottom: 20px;
+	margin-right: 0px;
+}
+
+header form div.service_type > span {
+	display: none;
+}
+
+header.home form div.service_type > span {
+	display: block;
+	padding-bottom: 5px;
 }
 
 header form div.service_type label {
-	margin-right: 5px;
+	margin-right: 10px;
 }
 
 header form div.service_type label:last-of-type {
@@ -90,46 +166,87 @@ header form div.service_type input {
 	display: none;
 }
 
-header form div.service_type span {
+header form div.service_type label span {
 	display: inline-block;
-	.service_type_icon_size(41px);
+	padding: 0px 8px;
 
 	border-radius: @control_border_radius;
-	background-color: fadeout(@color_background, 50%);
-	background-image: url(../images/service_type_icons.svg);
-	background-repeat: no-repeat;
+	background-color: fade(@color_background, 30%);
 	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 
 	font-size: 0px;
 	transition: all 0.3s;
 }
 
+header form div.service_type label span:after {
+	display: inline-block;
+	content: '';
+	.service_type_icon_size(41px);
+
+	background-image: url(../images/service_type_icons.svg);
+	background-repeat: no-repeat;
+	transition: all 0.3s;
+}
+
+header.home form div.service_type label span:after {
+	.service_type_icon_size(50px);
+}
+
+header form div.service_type label span:hover,
+header form div.service_type input:focus + span {
+	background-color: mix(fade(@color_background, 30%), fade(@color_selection, 70%));
+}
+
 header form div.service_type input:checked + span {
 	background-color: @color_selection;
 }
 
-header form div.service_type input[value=car] + span {
+header form div.service_type input[value=car] + span:after {
 	.service_type_icon_position(41, 0, false);
 }
 
-header form div.service_type input[value=car]:checked + span {
+header form div.service_type input[value=car]:checked + span:after {
 	.service_type_icon_position(41, 0, true);
 }
 
-header form div.service_type input[value=motorcycle] + span {
+header form div.service_type input[value=motorcycle] + span:after {
 	.service_type_icon_position(41, 1, false);
 }
 
-header form div.service_type input[value=motorcycle]:checked + span {
+header form div.service_type input[value=motorcycle]:checked + span:after {
 	.service_type_icon_position(41, 1, true);
 }
 
-header form div.service_type input[value=truck] + span {
+header form div.service_type input[value=truck] + span:after {
 	.service_type_icon_position(41, 2, false);
 }
 
-header form div.service_type input[value=truck]:checked + span {
+header form div.service_type input[value=truck]:checked + span:after {
 	.service_type_icon_position(41, 2, true);
+}
+
+header.home form div.service_type input[value=car] + span:after {
+	.service_type_icon_position(50, 0, false);
+}
+
+header.home form div.service_type input[value=car]:checked + span:after {
+	.service_type_icon_position(50, 0, true);
+}
+
+header.home form div.service_type input[value=motorcycle] + span:after {
+	.service_type_icon_position(50, 1, false);
+}
+
+header.home form div.service_type input[value=motorcycle]:checked + span:after {
+	.service_type_icon_position(50, 1, true);
+}
+
+header.home form div.service_type input[value=truck] + span:after {
+	.service_type_icon_position(50, 2, false);
+}
+
+header.home form div.service_type input[value=truck]:checked + span:after {
+	.service_type_icon_position(50, 2, true);
 }
 
 header form > label {
@@ -138,19 +255,54 @@ header form > label {
 	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+header.home form > label {
+	margin-bottom: 20px;
+	border-radius: @control_border_radius;
+}
+
 header form label svg {
 	display: inline-block;
-	width: 20px;
-	height: 20px;
+	vertical-align: top;
+	width: 1.5em;
+	height: 100%;
+
+	padding: 8px;
+	fill: lighten(@color_text, 40%);
+}
+
+header form label a.gps svg {
+	fill: lighten(@color_text, 50%);
+}
+
+header form label a.gps.active svg {
+	fill: @color_button;
+	animation: gps_animation 0.7s linear infinite alternate;
+}
+
+header form label a.gps.locked svg {
+	fill: @color_button;
 }
 
 header form label input {
-	padding: 10px;
+	min-width: 300px;
+	padding: 10px 2px;
+
 	border: 0px;
+	background-color: @color_background;
+}
+
+header form input::-moz-focus-inner,
+header form button::-moz-focus-inner {
+	border: 0;
+	padding: 0;
 }
 
 header form div.controls {
 	display: inline-block;
+}
+
+header.home form div.controls {
+	display: block;
 }
 
 header form div.controls button {
@@ -162,5 +314,42 @@ header form div.controls button {
 	background-color: @color_button;
 	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 
-	color: white;
+	color: @color_header_text;
+	transition: all 0.3s;
+}
+
+header form div.controls button svg {
+	display: none;
+}
+
+header.home form div.controls button {
+	position: relative;
+	padding-right: 2.7em;
+}
+
+header.home form div.controls button svg {
+	display: inline;
+	vertical-align: middle;
+	width: 1.5em;
+	height: 1.5em;
+
+	position: absolute;
+	right: 10px;
+	top: 50%;
+
+	margin-top: calc(-1.5em / 2);
+	fill: @color_header_text;
+}
+
+header.home form div.controls button {
+	border-radius: @control_border_radius;
+}
+
+header form div.controls button:focus,
+header form div.controls button:hover {
+	background-color: lighten(@color_button, 5%);
+}
+
+header form div.controls button:active {
+	background-color: darken(@color_button, 5%);
 }
