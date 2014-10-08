@@ -13,26 +13,37 @@
 
 		<div class="copyright">
 			<div class="inner_wrap">
-				<div class="left_conteiner">
-						<!-- Container for copyright and contect form link -->
-						<div>
-							<cms:text constant="add_company"/>
+				<div class="left_container">
+					<!-- Container for copyright and contect form link -->
+					<cms:text constant="add_company"/>
+					<a
+						 href=""
+						 eval="href"
+					>
+						<cms:text constant="contactus_link"/>
+						<svg viewBox="0 0 100 100"><use xlink:href="#icon-form"/></svg>
+					</a>
 
-							<a
-								 href=""
-								 eval="href"
-							>
-							<svg viewBox="0 0 100 100"><use xlink:href="#icon-form"/></svg>
-								<cms:text constant="contactus_link"/>
-							</a>
-						</div>
-
-						<!-- lower text of the container -->
-					<cms:text constant="get_company_listed"/>
+					<!-- lower text of the container -->
+					<span><cms:text constant="get_company_listed"/></span>
 				</div>
 
-				<div class="right_conteiner">
+				<div class="right_container">
+					<cms:module
+						name="articles"
+						action="show"
+						text_id="footer_text"
+						template="parts/footer_article.xml"
+					/>
 				</div>
+				<a
+					 href=""
+					 eval="href"
+					 class="copyright"
+				>
+				<svg class="icon icon-way2cu" viewBox="0 0 87 100"><use xlink:href="#icon-way2cu"/></svg>
+					<cms:text constant="copyright"/>
+				</a>
 			</div>
 		</div>
 	</footer>
