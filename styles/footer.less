@@ -17,7 +17,7 @@ footer div.inner_wrap {
 }
 
 footer div.copyright {
-	background-color: #AAAAAA;
+	background-color: #aaaaaa;
 	background-image: url(../images/footer_lower_background.jpg);
 	background-repeat: repeat-x;
 	background-position: center top;
@@ -29,12 +29,13 @@ footer div.copyright div.inner_wrap {
 }
 
 footer div.inner_wrap div.content_container {
-	max-width: 700px;
 	position: absolute;
+	max-width: 700px;
 	top: 55px;
 	right: 400px;
-	text-align: right;
+
 	color: @color_title;
+	text-align: right;
 }
 
 footer div.inner_wrap div.content_container h2 {
@@ -55,13 +56,13 @@ footer div.inner_wrap div.content_container div {
 	margin-right: auto;
 	padding: 10px;
 
-	background-color: #33485d;
-	background-image: 
+	background-color: @color_title;
+	background-image:
 		url(../images/mobile_friendly.svg),
 		url(../images/qr_code.svg);
-	background-repeat: no-repeat;
+	background-repeat: no-repeat, no-repeat;
 	background-position: center 175px, center 10px;
-	background-size: 70% auto
+	background-size: 70% auto;
 }
 
 footer div.inner_wrap div.content_container:hover ~ div.mobile_pic {
@@ -69,10 +70,9 @@ footer div.inner_wrap div.content_container:hover ~ div.mobile_pic {
 }
 
 footer div.inner_wrap div.mobile_pic {
+	position: absolute;
 	width: 212px;
 	height: 375px;
-
-	position: absolute;
 	top: 133px;
 	right: 114px;
 
@@ -81,23 +81,26 @@ footer div.inner_wrap div.mobile_pic {
 	background-position: center top;
 	background-size: auto 375px;
 
-	transition: 0.5s all;
+	transition: all 0.5s;
 }
 
 footer div.left_container {
 	display: inline-block;
 	vertical-align: top;
 	width: 340px;
+
+	margin-right: 40px;
 	padding: 10px;
 
-	border: 1px solid black;
-	color: white;
+	border: 1px solid fadeout(@color_title, 40%);
+
+	color: @color_footer_text;
+	text-align: center;
 }
 
 footer div.left_container:first-line {
-	font-size: 1.2rem;
+	font-size: 1.4rem;
 }
-
 
 footer div.left_container div {
 	display: inline-block;
@@ -110,24 +113,23 @@ footer div.left_container div {
 
 footer div.left_container a {
 	display: inline-block;
-	margin: 0px 10px 0px 15px;
-	padding: 5px 0px;
-	padding-right: 40px;
-	padding-left: 5px;
+	margin-left: 10px;
+	padding: 7px;
+	padding-right: 2.4em;
 
 	position: relative;
 
-	border: 1px solid white;
-	border-radius: 5px;
-	background-color: orange;
+	border: 1px solid lighten(@color_selection, 30%);
+	border-radius: @control_border_radius;
+	background-color: @color_selection;
 
-	color: white;
+	color: @color_footer_text;
 	text-align: center;
 	text-decoration: none;
 }
 
 footer div.left_container a svg {
-	fill: white;
+	fill: @color_footer_text;
 	width: 1.5em;
 	height: 1.5em;
 
@@ -139,46 +141,52 @@ footer div.left_container a svg {
 
 footer div.left_container span {
 	display: block;
-	margin-top: 5px;
+	margin-top: 10px;
 	padding-top: 5px;
 
-	border-top: 2px solid white;
+	border-top: 1px solid fadeout(@color_footer_text, 40%);
 }
 
 footer div.right_container {
 	display: inline-block;
 	max-width: 700px;
-	margin-left: 40px;
 
 	vertical-align: top;
 }
 
-footer div.right_container div.article p {
-	margin: 0px;
-	font-weight: bold;
-	text-align: left;
-}
-
-footer div.right_container div.article p strong {
-	display: block;
-}
-
-footer a.copyright {
-	display: block;
+/**
+ * Copyright container
+ */
+footer small {
 	position: absolute;
-	top: 230px;
+	left: 0px;
+	top: 200px;
 
-	color: black;
-	text-align: left;
-	text-decoration: none;
-	font-weight: bold;
+	padding-left: 3.2em;
+
+	color: @color_title;
+	direction: ltr;
+	font-size: 0.9rem;
 }
 
-footer a.copyright svg {
-	display: inline-block;
+footer small a {
+	color: @color_title;
+	transition: all 0.3s;
+}
+
+footer small a:focus,
+footer small a:hover {
+	color: @color_footer_text;
+}
+
+footer small svg {
+	position: absolute;
+	left: 0px;
+	top: 50%;
 	width: 2.9em;
 	height: 2.9em;
-	margin: 0px 10px;
+
+	margin-top: -2.9em / 2;
 
 	vertical-align: middle;
 }
