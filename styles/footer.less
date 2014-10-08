@@ -7,7 +7,7 @@
  */
 
 footer {
-	background-image: url(../images/footer.jpg);
+	background-image: url(../images/footer_background.jpg);
 	background-repeat: no-repeat;
 	background-position: center top;
 }
@@ -16,8 +16,16 @@ footer div.inner_wrap {
 	min-height: 700px;
 }
 
-footer div.inner_wrap.copyright {
+footer div.copyright {
+	background-color: #AAAAAA;
+	background-image: url(../images/footer_lower_background.jpg);
+	background-repeat: repeat-x;
+	background-position: center top;
+}
+
+footer div.copyright div.inner_wrap {
 	min-height: 300px;
+	padding-top: 70px;
 }
 
 footer div.inner_wrap div.content_container {
@@ -57,7 +65,7 @@ footer div.inner_wrap div.content_container div {
 }
 
 footer div.inner_wrap div.content_container:hover ~ div.mobile_pic {
-	background-image: url(../images/scan_qr.jpg);
+	background-image: url(../images/qr_slide.jpg);
 }
 
 footer div.inner_wrap div.mobile_pic {
@@ -74,4 +82,40 @@ footer div.inner_wrap div.mobile_pic {
 	background-size: auto 375px;
 
 	transition: 0.5s all;
+}
+
+footer div.left_conteiner {
+	display: inline-block;
+	vertical-align: top;
+	max-width: 400px;
+	border: 1px solid black;
+}
+
+footer div.left_conteiner div {
+	border-bottom: 2px solid #AAAAAA;
+}
+
+footer div.left_conteiner div a {
+	display: inline-block;
+	vertical-align: top;
+
+	margin: 0px 10px;
+	padding: 5px;
+	background-color: orange;
+
+	color: white;
+	font-size: 1.2rem;
+	text-align: center;
+	text-decoration: none;
+}
+
+footer div.left_conteiner div a svg {
+	width: 1.5em;
+	height: 1.5em;
+}
+
+footer div.right_conteiner {
+	display: inline-block;
+	max-width: 700px;
+	vertical-align: top;
 }
