@@ -12,6 +12,14 @@
 			<cms:template file="parts/header.xml"/>
 
 			<div class="inner_wrap">
+				<div class="features_container">
+					<cms:module
+						name="articles"
+						action="show_list"
+						group="features"
+						template="parts/feature.xml"
+					/>
+				</div>
 			</div>
 
 			<cms:template file="parts/footer.xml"/>
