@@ -44,7 +44,8 @@ header.home {
 
 header.home:before {
 	position: absolute;
-	width: 100%;
+	width: 60%;
+	max-width: 1066px;
 	height: 100%;
 	right: 0px;
 	top: 0px;
@@ -52,7 +53,8 @@ header.home:before {
 
 	background-image: url(../images/header_shade.svg);
 	background-repeat: no-repeat;
-	background-position: right top;
+	background-position: left top;
+	background-size: 1066px 600px;
 }
 
 header a.logo {
@@ -116,7 +118,8 @@ header form {
 }
 
 header.home form {
-	top: 100px;
+	top: 170px;
+	right: 100px;
 }
 
 header form > span {
@@ -256,8 +259,9 @@ header form > label {
 }
 
 header.home form > label {
-	margin-bottom: 20px;
+	margin-bottom: 30px;
 	border-radius: @control_border_radius;
+	font-size: 1.3em;
 }
 
 header form label svg {
@@ -324,7 +328,11 @@ header form div.controls button svg {
 
 header.home form div.controls button {
 	position: relative;
-	padding-right: 2.7em;
+	padding: 15px 25px;
+	padding-right: 2.8em;
+
+	border-radius: @control_border_radius;
+	font-size: 1.3em;
 }
 
 header.home form div.controls button svg {
@@ -334,15 +342,11 @@ header.home form div.controls button svg {
 	height: 1.5em;
 
 	position: absolute;
-	right: 10px;
+	right: 15px;
 	top: 50%;
 
 	margin-top: -1.5em / 2;
 	fill: @color_header_text;
-}
-
-header.home form div.controls button {
-	border-radius: @control_border_radius;
 }
 
 header form div.controls button:focus,
