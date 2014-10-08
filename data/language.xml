@@ -15,10 +15,11 @@
 		<constant name="type_truck">Truck</constant>
 
 		<!-- Footer -->
-		<constant name="footer_anywhere_anytime">from anywhere any time from any phone</constant>
+		<constant name="footer_anywhere_anytime">From anywhere any time from any phone</constant>
 		<constant name="get_tow">Get: tow.expert on your mobile device!</constant>
-		<constant name="add_company">add your company to tow.expert</constant>
-		<constant name="contactus_link">contact us</constant>
-		<constant name="get_company_listed">contact us and get your company listed</constant>
+		<constant name="add_company">Add your company</constant>
+		<constant name="contactus_link">Contact us</constant>
+		<constant name="get_company_listed">Contact us and get your company listed</constant>
+		<constant name="copyright">Designed and developed by way2cu</constant>
 	</language>
 </document>
