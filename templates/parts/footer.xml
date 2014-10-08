@@ -11,7 +11,29 @@
 			<div class="mobile_pic"></div>
 		</div>
 
-		<div class="inner_wrap copyright">
+		<div class="copyright">
+			<div class="inner_wrap">
+				<div class="left_conteiner">
+						<!-- Container for copyright and contect form link -->
+						<div>
+							<cms:text constant="add_company"/>
+
+							<a
+								 href=""
+								 eval="href"
+							>
+							<svg viewBox="0 0 100 100"><use xlink:href="#icon-form"/></svg>
+								<cms:text constant="contactus_link"/>
+							</a>
+						</div>
+
+						<!-- lower text of the container -->
+					<cms:text constant="get_company_listed"/>
+				</div>
+
+				<div class="right_conteiner">
+				</div>
+			</div>
 		</div>
 	</footer>
 </document>
