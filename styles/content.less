@@ -1,0 +1,59 @@
+/**
+ * Content Style Sheet
+ * Tow.Expert
+ *
+ * Copyright (c) 2014. by Way2CU, http://way2cu.com
+ * Authors: Mladen Mijatov, Khalid Sawalhi
+ */
+
+div.features_container {
+ 	text-align: center;
+ }
+
+div.features_container div.feature {
+	display: inline-block;
+	vertical-align: top;
+	max-width: 300px;
+	margin: 0px 20px;
+}
+
+div.features_container div.feature h3 {
+	margin-bottom: 0px;
+	padding-top: 140px;
+	position: relative;
+	background-repeat: no-repeat;
+	background-position: center top;
+	background-size: 120px 120px;
+	color: @color_title;
+}
+
+div.features_container div.feature h3:before {
+	width: 120px;
+	height: 120px;
+	margin-right: -60px;
+	content: '';
+
+	position: absolute;
+	top: 0px;
+	right: 50%;
+
+	border-radius: 50%;
+	background-color: @color_selection;
+	z-index: -1;
+}
+
+div.features_container div.feature:nth-child(1) h3 {
+	background-image: url(../images/icon-search.svg);
+}
+
+div.features_container div.feature:nth-child(2) h3 {
+	background-image: url(../images/icon-phone.svg);
+}
+
+div.features_container div.feature:nth-child(3) h3 {
+	background-image: url(../images/icon-truck.svg);
+}
+
+div.features_container div.feature p {
+	color: @color_text;
+}
