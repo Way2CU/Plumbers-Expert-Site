@@ -2,13 +2,15 @@
 <!DOCTYPE document SYSTEM "../units/schema/language.dtd">
 <document>
 	<footer>
+		<!-- Upper part of footer -->
 		<div class="inner_wrap">
 			<div class="content_container">
-				<h2><cms:text constant="footer_anywhere_anytime"/></h2>
-				<span><cms:text constant="get_tow"/></span>
-				<div></div>
+				<h2><cms:text constant="footer_call_to_action"/></h2>
+				<span><cms:text constant="footer_call_to_action2"/></span>
+				<div/>
 			</div>
-			<div class="mobile_pic"></div>
+
+			<div class="mobile_pic"/>
 		</div>
 
 		<div class="copyright">
@@ -16,15 +18,10 @@
 				<div class="left_container">
 					<!-- Container for copyright and contect form link -->
 					<cms:text constant="add_company"/>
-					<a
-						 href=""
-						 eval="href"
-					>
+					<a href="" cms:eval="href">
 						<cms:text constant="contactus_link"/>
 						<svg viewBox="0 0 100 100"><use xlink:href="#icon-form"/></svg>
 					</a>
-
-					<!-- lower text of the container -->
 					<span><cms:text constant="get_company_listed"/></span>
 				</div>
 
@@ -36,14 +33,16 @@
 						template="parts/footer_article.xml"
 					/>
 				</div>
-				<a
-					 href=""
-					 eval="href"
-					 class="copyright"
-				>
-				<svg class="icon icon-way2cu" viewBox="0 0 87 100"><use xlink:href="#icon-way2cu"/></svg>
+
+				<small>
+					<svg viewBox="0 0 87 100"><use xlink:href="#icon-way2cu"/></svg>
 					<cms:text constant="copyright"/>
-				</a>
+					<a href="http://way2cu.com" target="_blank">
+						<cms:text constant="copyright_company"/>
+					</a>
+					<cms:raw text="."/><br/>
+					<cms:text constant="copyright_rights"/>
+				</small>
 			</div>
 		</div>
 	</footer>
