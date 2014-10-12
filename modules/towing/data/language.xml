@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document SYSTEM "../../../units/schema/language.dtd">
+<document>
+	<language short="en">
+		<constant name="menu_towing">Towing</constant>
+		<constant name="menu_update">Update database</constant>
+
+		<constant name="title_update">Towing: Update company database</constant>
+
+		<constant name="label_file">Update file:</constant>
+
+		<constant name="message_update_complete">Company database was updated. %new new entries and %existing existing updated.</constant>
+		<constant name="message_update_failed">Update failed. Please check file format.</constant>
+	</language>
+</document>
