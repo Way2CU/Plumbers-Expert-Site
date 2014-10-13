@@ -5,6 +5,8 @@
 		<constant name="site_title">Tow.Expert</constant>
 		<constant name="slogan"><![CDATA[Find towing &amp;&nbsp;roadside services.]]></constant>
 
+		<constant name="show_map">Click here to show results on map.</constant>
+
 		<!-- Form labels -->
 		<constant name="label_vehicle_type">Vehicle type:</constant>
 		<constant name="label_search_query">Search by address, zip code or company:</constant>
