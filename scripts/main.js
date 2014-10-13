@@ -3,7 +3,7 @@
  * Tow.Expert
  *
  * Copyright (c) 2014. by Way2CU, http://way2cu.com
- * Authors:
+ * Authors: Mladen Mijatov
  */
 
 var TowExpert = TowExpert || {};
@@ -29,7 +29,28 @@ function SearchBar() {
 		// connect events
 		self.gps_links.click(self._handle_gps_click);
 		self.vehicle_type.change(self._handle_type_change);
+		self.input_field
+				.focus(self._handle_input_focus)
+				.blur(self._handle_input_blur);
 	}
+
+	/**
+	 * Handle input field gaining focus.
+	 *
+	 * @param object event
+	 */
+	self._handle_input_focus = function(event) {
+		self.input_field.parent().addClass('focus');
+	};
+
+	/**
+	 * Handle input field loosing focus.
+	 *
+	 * @param object event
+	 */
+	self._handle_input_blur = function(event) {
+		self.input_field.parent().removeClass('focus');
+	};
 
 	/**
 	 * Handle changing vehicle type.
