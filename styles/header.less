@@ -31,15 +31,30 @@
 }
 
 header {
-	height: 200px;
 	background-image: url(../images/header_background.jpg);
 	background-repeat: no-repeat;
 	background-position: center center;
+	overflow: hidden;
 }
 
-header.home {
+header div.inner_wrap {
+	height: 200px;
+}
+
+header.home div.inner_wrap {
 	height: 600px;
-	position: relative;
+}
+
+header:not(.home) div.inner_wrap:after {
+	position: absolute;
+	width: 100%;
+	height: 70px;
+	left: 0px;
+	bottom: 0px;
+	content: '';
+
+	border-radius: @control_border_radius @control_border_radius 0px 0px;
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 header.home:before {
@@ -59,7 +74,7 @@ header.home:before {
 
 header a.logo {
 	position: absolute;
-	top: 10px;
+	top: 30px;
 	left: 0px;
 
 	padding-left: 55px;
@@ -112,7 +127,7 @@ header form {
 	display: block;
 	position: absolute;
 	right: 0px;
-	top: 20px;
+	top: 40px;
 
 	color: @color_header_text;
 }
@@ -258,6 +273,12 @@ header form > label {
 	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+header form > label.focus {
+	box-shadow:
+		2px 2px 4px rgba(0, 0, 0, 0.3),
+		inset 0px 0px 1px 1px @color_selection;
+}
+
 header.home form > label {
 	margin-bottom: 30px;
 	border-radius: @control_border_radius;
@@ -292,7 +313,7 @@ header form label input {
 	padding: 10px 2px;
 
 	border: 0px;
-	background-color: @color_background;
+	background-color: transparent;
 }
 
 header form input::-moz-focus-inner,
