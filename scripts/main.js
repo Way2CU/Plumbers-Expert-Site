@@ -132,7 +132,9 @@ function SearchBar() {
 
 function on_site_load() {
 	TowExpert.search_bar = new SearchBar();
-	TowExpert.map = new Map();
+
+	if ($('div#map').length > 0)
+		TowExpert.map = new Map();
 }
 
 $(on_site_load);
