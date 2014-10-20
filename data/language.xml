@@ -6,6 +6,7 @@
 		<constant name="slogan"><![CDATA[Find towing &amp;&nbsp;roadside services.]]></constant>
 
 		<constant name="show_map">Click here to show results on map.</constant>
+		<constant name="hide_map">Hide map.</constant>
 
 		<!-- Form labels -->
 		<constant name="label_vehicle_type">Vehicle type:</constant>
