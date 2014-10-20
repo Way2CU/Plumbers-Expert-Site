@@ -14,8 +14,23 @@ use Core\Module;
 require_once('units/manager.php');
 
 
+final class QueryType {
+	const CAR = 0;
+	const MOTORCYCLE = 1;
+	const TRUCK = 2;
+}
+
+
 class towing extends Module {
 	private static $_instance;
+
+	private $referrence = array(
+					'car'			=> QueryType::CAR,
+					'motorcycle'	=> QueryType::MOTORCYCLE,
+					'truck'			=> QueryType::TRUCK
+				);
+
+	const GEOCODING_API = 'https://maps.googleapis.com/maps/api/geocode/json?address={address}&key={key}';
 
 	/**
 	 * Constructor
@@ -36,13 +51,41 @@ class towing extends Module {
 
 			$towing_menu->addChild('', new backend_MenuItem(
 					$this->getLanguageConstant('menu_update'),
-					url_GetFromFilePath($this->path.'images/icon.svg'),
+					url_GetFromFilePath($this->path.'images/update.svg'),
 					window_Open(
 						'towing_update',
 						350,
 						$this->getLanguageConstant('title_update'),
 						true, true,
 						backend_UrlMake($this->name, 'update')
+					),
+					$level=5
+				));
+
+			$towing_menu->addChild('', new backend_MenuItem(
+					$this->getLanguageConstant('menu_index'),
+					url_GetFromFilePath($this->path.'images/index.svg'),
+					window_Open(
+						'towing_index',
+						650,
+						$this->getLanguageConstant('title_index'),
+						true, true,
+						backend_UrlMake($this->name, 'index')
+					),
+					$level=5
+				));
+
+			$towing_menu->addSeparator(5);
+
+			$towing_menu->addChild('', new backend_MenuItem(
+					$this->getLanguageConstant('menu_set_api_key'),
+					url_GetFromFilePath($this->path.'images/api_key.svg'),
+					window_Open(
+						'towing_api_key',
+						350,
+						$this->getLanguageConstant('title_api_key'),
+						true, true,
+						backend_UrlMake($this->name, 'api_key')
 					),
 					$level=5
 				));
@@ -71,6 +114,14 @@ class towing extends Module {
 		// global control actions
 		if (isset($params['action']))
 			switch ($params['action']) {
+				case 'show_results':
+					$this->tag_Results($params, $children);
+					break;
+
+				case 'show_company':
+					$this->tag_Company($params, $children);
+					break;
+
 				default:
 					break;
 			}
@@ -84,6 +135,14 @@ class towing extends Module {
 
 				case 'update_commit':
 					$this->updateDatabase_Commit();
+					break;
+
+				case 'api_key':
+					$this->setKey();
+					break;
+
+				case 'api_key_save':
+					$this->setKey_Commit();
 					break;
 
 				default:
@@ -121,6 +180,9 @@ class towing extends Module {
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
 
 		$db->query($sql);
+
+		// store empty api key
+		$this->saveSetting('api_key', '');
 	}
 
 	/**
@@ -143,8 +205,6 @@ class towing extends Module {
 		// make sure file exists
 		if (!file_exists($filename))
 			return $result;
-
-		trigger_error('Came!');
 
 		// open update file
 		$handle = fopen($filename, 'r');
@@ -187,7 +247,7 @@ class towing extends Module {
 
 		// load list of existing companies
 		$oid_list = array();
-		$companies = $manager->getItems(array('oid'));
+		$companies = $manager->getItems(array('oid'), array());
 
 		foreach ($companies as $company)
 			$oid_list[] = $company->oid;
@@ -210,7 +270,7 @@ class towing extends Module {
 						'radius'			=> $row[9],
 						'phone'				=> $row[8],
 						'promotion'			=> $row[12],
-						'promotion_date'	=> $data,
+						'promotion_date'	=> $date,
 						'description'		=> $row[14]
 					);
 
@@ -260,5 +320,138 @@ class towing extends Module {
 			$template->setLocalParams($params);
 			$template->parse();
 		}
+	}
+
+	/**
+ 	 * Show window for API key input.
+	 */
+	private function setKey() {
+		$template = new TemplateHandler('api_key.xml', $this->path.'templates/');
+		$template->setMappedModule($this->name);
+
+		$params = array(
+				'form_action'	=> backend_UrlMake($this->name, 'api_key_save'),
+				'cancel_action'	=> window_Close('towing_api_key')
+			);
+
+		$template->restoreXML();
+		$template->setLocalParams($params);
+		$template->parse();
+	}
+
+	/**
+	 * Store API key.
+	 */
+	private function setKey_Commit() {
+		$api_key = fix_chars($_REQUEST['api_key']);
+		$this->saveSetting('api_key', $api_key);
+
+		$template = new TemplateHandler('message.xml', $this->path.'templates/');
+		$params = array(
+				'message'	=> $this->getLanguageConstant('message_api_key_saved'),
+				'button'	=> $this->getLanguageConstant('close'),
+				'action'	=> window_Close('towing_api_key')
+			);
+
+		$template->restoreXML();
+		$template->setLocalParams($params);
+		$template->parse();
+	}
+
+	/**
+	 * Get coordinates based on location.
+	 *
+	 * @param string $location
+	 * @return array
+	 */
+	public function getCoordinates($location) {
+		$result = array(
+				'latitude'	=> null,
+				'longitude'	=> null
+			);
+
+		// prepare request data
+		$url = str_replace(
+				array(
+					'{address}',
+					'{key}'
+				),
+				array(
+					urlencode($location),
+					$this->settings['api_key']
+				),
+				$this->GEOCODING_API
+			);
+
+		// get response from Google
+		$data = json_decode(file_get_contents($url));
+
+		if ($data !== false && $data['status'] == 'OK') {
+			$result['latitude'] = $data['geometry']['location']['lat'];
+			$result['longitude'] = $data['geometry']['location']['lng'];
+		}
+
+		return $result;
+	}
+
+	/**
+	 * Show list of companies matching search query.
+	 *
+	 * @param array $tag_params
+	 * @param array $children
+	 */
+	public function tag_Results($tag_params, $children) {
+		$query = null;
+		$query_type = QueryType::CAR;
+		$limit = 10;
+		$manager = CompanyManager::getInstance();
+
+		// get search query
+		if (isset($tag_params['query']))
+			$query = fix_chars($tag_params['query']);
+
+		if (is_null($query) && isset($_REQUEST['query']))
+			$query = fix_chars($_REQUEST['query']);
+
+		if (isset($tag_params['type']) && array_key_exists($tag_params['type'], $this->referrence))
+			$query_type = $this->referrence[$tag_params['type']];
+
+		if (isset($_REQUEST['type']) && array_key_exists($_REQUEST['type'], $this->referrence))
+			$query_type = $this->referrence[$_REQUEST['type']];
+
+		// get all companies from database
+		$companies = $manager->getItems(
+			array('id', 'name', 'address', 'latitude', 'longitude'),
+			array(),
+			array('name'),
+			true,
+			$limit
+		);
+
+		// load template
+		$template = $this->loadTemplate($tag_params, 'result.xml');
+
+		if (count($companies) > 0)
+			foreach ($companies as $company) {
+				$params = array(
+					'name'		=> $company->name,
+					'address'	=> $company->address,
+					'latitude'	=> $company->latitude,
+					'longitude'	=> $company->longitude
+					);
+
+				$template->restoreXML();
+				$template->setLocalParams($params);
+				$template->parse();
+			}
+	}
+
+	/**
+	 * Tag handler for drawing company details.
+	 *
+	 * @param array $tag_params
+	 * @param array $children
+	 */
+	public function tag_Company($tag_params, $children) {
 	}
 }

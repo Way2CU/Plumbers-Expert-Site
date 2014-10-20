@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE document SYSTEM "../../units/schema/language.dtd">
+<document>
+	<div
+		class="result"
+		data-latitude="$params['latitude']"
+		data-longitude="$params['longitude']"
+		cms:eval="data-latitude,data-longitude"
+		>
+
+		<!-- Logo -->
+		<figure>
+		</figure>
+
+		<!-- Top row -->
+		<div class="summary">
+			<h3><cms:var name="$params['name']"/></h3>
+			<cms:var name="$params['address']"/>
+		</div>
+
+		<div class="call_to_action">
+		</div>
+	</div>
+</document>
