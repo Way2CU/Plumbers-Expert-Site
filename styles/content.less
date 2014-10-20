@@ -13,9 +13,7 @@ div.features_container {
 
 div.features_container div.feature {
 	display: inline-block;
-	vertical-align: top;
-	max-width: 300px;
-	margin: 0px 20px;
+	vertical-align: top; max-width: 300px; margin: 0px 20px;
 }
 
 div.features_container div.feature h3 {
@@ -57,4 +55,196 @@ div.features_container div.feature:nth-child(3) h3 {
 
 div.features_container div.feature p {
 	color: @color_text;
+}
+
+/**
+ * Search results
+ */
+div#results {
+	display: block;
+	max-width: 1200px;
+	min-height: 600px;
+
+	position: relative;
+	top: -70px;
+
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div#results div.result {
+	display: block;
+	margin-bottom: 5px;
+
+	background-color: @color_result_background;
+}
+
+div#results div.result:last-of-type {
+	margin-bottom: 0px;
+}
+
+div#results div.result figure {
+	display: inline-block;
+	vertical-align: top;
+	width: 3rem;
+	height: 3rem;
+
+	margin: 0px;
+	margin-right: 10px;
+	padding: 10px;
+}
+
+div#results div.result div.summary {
+	display: inline-block;
+	vertical-align: top;
+	width: 50%;
+	min-height: 3rem;
+
+	margin-right: 1px;
+	padding: 10px;
+
+	border-right: 1px solid @color_background;
+	background-color: darken(@color_result_background, 5%);
+
+	color: lighten(@color_text, 15%);
+}
+
+div#results div.result div.summary h3 {
+	margin: 0px;
+	padding: 0px;
+	padding-bottom: 5px;
+
+	color: @color_title;
+	font-weight: normal;
+	line-height: 100%;
+}
+
+div#results div.result div.call_to_action {
+	display: inline-block;
+	vertical-align: top;
+	width: calc(~'50% - 72px - 3rem');
+	padding: 10px;
+}
+
+div#map {
+	display: block;
+	height: 70px;
+
+	position: relative;
+	margin-bottom: 5px;
+
+	border-radius: @control_border_radius @control_border_radius 0px 0px;
+	background-color: @color_map_background;
+
+	transition: height 0.5s;
+}
+
+div#map.expanded {
+	height: 300px;
+}
+
+div#map div.overlay {
+	position: absolute;
+	width: 100%;
+	height: calc(~'100% - 17px');
+	left: 0px;
+	top: 0px;
+
+	padding-top: 17px;
+
+	background-color: fade(@color_background, 20%);
+	background-image: radial-gradient(500px at 50% 50%, rgba(255, 255, 255, 0.8) 30%, rgba(255, 255, 255, 0) 100%);
+
+	color: @color_title;
+	text-align: center;
+
+	z-index: 1;
+	visibility: visible;
+	opacity: 1;
+
+	transition: opacity 0.5s;
+}
+
+div#map.expanded div.overlay {
+	visibility: hidden;
+	opacity: 0;
+}
+
+div#map a.hide,
+div#map div.overlay a.show {
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: 10px;
+	padding: 7px 15px;
+
+	position: relative;
+	top: -2px;
+
+	border: 0px;
+	border-radius: @control_border_radius;
+	background-color: @color_button;
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+
+	color: @color_header_text;
+	transition: all 0.3s;
+	line-height: 0px;
+}
+
+div#map a.hide:focus,
+div#map div.overlay a.show:focus,
+div#map a.hide:hover,
+div#map div.overlay a.show:hover {
+	background-color: lighten(@color_button, 5%);
+}
+
+div#map a.hide:active,
+div#map div.overlay a.show:active {
+	background-color: darken(@color_button, 5%);
+}
+
+div#map div.overlay a.show svg {
+	width: 1.9em;
+	height: 1.6em;
+	fill: @color_header_text;
+}
+
+div#map a.hide {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+
+	margin: 0px;
+	padding: 7px;
+	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+
+	line-height: 0px;
+
+	visibility: hidden;
+	opacity: 0;
+	z-index: 1;
+}
+
+div#map.expanded a.hide {
+	visibility: visible;
+	opacity: 1;
+}
+
+div#map a.hide img {
+	width: 1em;
+	height: 1em;
+}
+
+div#map div.gmnoprint,
+div#map div.gm-style-cc {
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+
+div#map.expanded div.gmnoprint,
+div#map.expanded div.gm-style-cc {
+	opacity: 1;
+}
+
+div#map > div.gm-style {
+	background-color: @color_map_background;
 }
