@@ -132,6 +132,7 @@ function SearchBar() {
 
 function on_site_load() {
 	TowExpert.search_bar = new SearchBar();
+	TowExpert.map = new Map();
 }
 
 $(on_site_load);
