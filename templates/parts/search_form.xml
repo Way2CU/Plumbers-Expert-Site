@@ -46,6 +46,7 @@
 				name="query"
 				value="isset($_REQUEST['query']) ? fix_chars($_REQUEST['query']) : false"
 				placeholder="search_example"
+				autocomplete="off"
 				cms:constant="placeholder"
 				cms:optional="value"
 				/>
