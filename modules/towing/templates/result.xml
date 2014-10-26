@@ -10,15 +10,88 @@
 
 		<!-- Logo -->
 		<figure>
+			<img
+				src="$params['logo_url']"
+				alt="$params['name']"
+				cms:eval="src,alt"
+				width="48"
+				height="48"
+				/>
 		</figure>
 
 		<!-- Top row -->
 		<div class="summary">
 			<h3><cms:var name="$params['name']"/></h3>
-			<cms:var name="$params['address']"/>
+			<cms:if condition="!empty($params['address'])">
+				<cms:var name="$params['address']"/><cms:raw text=", "/>
+			</cms:if>
+			<cms:var name="$params['city']"/><cms:raw text=", "/>
+			<cms:var name="$params['state']"/>
 		</div>
 
 		<div class="call_to_action">
+			<div>
+				<div class="distance">
+					<svg viewBox="0 0 69 100">
+						<use
+							xlink:href="_BASEURL.'/site/images/sprites.svg#icon-pin'"
+							cms:eval="xlink:href"
+							/>
+					</svg>
+					<cms:var name="$params['distance']"/>
+					<cms:text constant="label_distance"/>
+				</div>
+
+				<div class="rating">
+					<span><cms:text constant="label_rate_us"/></span>
+					<a
+						href="javacript:void(0);"
+						title="rate_up"
+						class="rate_up"
+						data-company="$params['id']"
+						cms:eval="data-company"
+						cms:constant="title"
+						>
+						<svg viewBox="0 0 99 100">
+							<use
+								xlink:href="_BASEURL.'/site/images/sprites.svg#icon-like'"
+								cms:eval="xlink:href"
+								/>
+						</svg>
+						<cms:var name="$params['likes']"/>
+					</a>
+
+					<a
+						href="javacript:void(0);"
+						title="rate_down"
+						class="rate_down"
+						data-company="$params['id']"
+						cms:eval="data-company"
+						cms:constant="title"
+						>
+						<svg viewBox="0 0 99 100">
+							<use
+								xlink:href="_BASEURL.'/site/images/sprites.svg#icon-dislike'"
+								cms:eval="xlink:href"
+								/>
+						</svg>
+						<cms:var name="$params['dislikes']"/>
+					</a>
+				</div>
+			</div>
+
+			<a
+				href="'tel:'.urlencode($params['phone'])"
+				cms:eval="href"
+				>
+				<svg viewBox="0 0 100 100">
+					<use
+						xlink:href="_BASEURL.'/site/images/sprites.svg#icon-phone'"
+						cms:eval="xlink:href"
+						/>
+				</svg>
+				<cms:var name="$params['phone']"/>
+			</a>
 		</div>
 	</div>
 </document>
