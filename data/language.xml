@@ -7,11 +7,16 @@
 
 		<constant name="show_map">Click here to show results on map.</constant>
 		<constant name="hide_map">Hide map.</constant>
+		<constant name="rate_up">Like</constant>
+		<constant name="rate_down">Dislike</constant>
+		<constant name="message_additional_results">Companies close by, but you are outside of their service area.</constant>
 
 		<!-- Form labels -->
 		<constant name="label_vehicle_type">Vehicle type:</constant>
 		<constant name="label_search_query">Search by address, zip code or company:</constant>
 		<constant name="search_example">eg. 2033, new york</constant>
+		<constant name="label_distance">&amp;nbsp;mile(s) from you</constant>
+		<constant name="label_rate_us">Rate us:</constant>
 
 		<!-- Vehicle types -->
 		<constant name="type_car">Car</constant>
