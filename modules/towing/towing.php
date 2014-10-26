@@ -31,6 +31,8 @@ class towing extends Module {
 				);
 
 	const GEOCODING_API = 'https://maps.googleapis.com/maps/api/geocode/json?address={address}&key={key}';
+	const REGEX_ZIP = '/^\d{5,10}$/ui';
+	const REGEX_COORDS = '/^\d{1,3}\.\d+\s\d{1,3}\.\d+$/ui';
 
 	/**
 	 * Constructor
@@ -158,8 +160,8 @@ class towing extends Module {
 
 		$sql = "
 			CREATE TABLE IF NOT EXISTS `towing_companies` (
-				`id` int(11) NOT NULL AUTO_INCREMENT,
-				`oid` int(11) NOT NULL,
+				`id` int NOT NULL AUTO_INCREMENT,
+				`oid` int NOT NULL,
 				`name` varchar(150) NOT NULL,
 				`address` varchar(255) NOT NULL,
 				`city` varchar(100) NOT NULL,
@@ -167,11 +169,18 @@ class towing extends Module {
 				`state` char(2) NOT NULL,
 				`latitude` decimal(11,8) NOT NULL,
 				`longitude` decimal(11,8) NOT NULL,
-				`radius` smallint(6) NOT NULL,
+				`radius` smallint NOT NULL,
 				`phone` varchar(20) NOT NULL,
+				`promoted` boolean NOT NULL DEFAULT '0',
 				`promotion` text NULL,
 				`promotion_date` date NULL,
 				`description` text NOT NULL,
+				`support_car` boolean NOT NULL DEFAULT '1',
+				`support_motorcycle` boolean NOT NULL DEFAULT '1',
+				`support_truck` boolean NOT NULL DEFAULT '1',
+				`likes` int NOT NULL DEFAULT '0',
+				`dislikes` int NOT NULL DEFAULT '0',
+				`active` boolean NOT NULL DEFAULT '1',
 				PRIMARY KEY (`id`),
 				INDEX `index_by_zip` (`zip`),
 				INDEX `index_by_oid` (`oid`),
@@ -252,6 +261,9 @@ class towing extends Module {
 		foreach ($companies as $company)
 			$oid_list[] = $company->oid;
 
+		// deactivate all the companies
+		$manager->updateData(array('active' => 0), array());
+
 		// update database
 		if (count($csv_data) > 0) {
 			array_shift($csv_data);
@@ -271,7 +283,8 @@ class towing extends Module {
 						'phone'				=> $row[8],
 						'promotion'			=> $row[12],
 						'promotion_date'	=> $date,
-						'description'		=> $row[14]
+						'description'		=> $row[14],
+						'active'			=> 1
 					);
 
 				if (in_array($row[0], $oid_list)) {
@@ -380,15 +393,16 @@ class towing extends Module {
 					urlencode($location),
 					$this->settings['api_key']
 				),
-				$this->GEOCODING_API
+				self::GEOCODING_API
 			);
 
 		// get response from Google
-		$data = json_decode(file_get_contents($url));
+		$response = json_decode(file_get_contents($url));
 
-		if ($data !== false && $data['status'] == 'OK') {
-			$result['latitude'] = $data['geometry']['location']['lat'];
-			$result['longitude'] = $data['geometry']['location']['lng'];
+		if ($response !== false && $response->status == 'OK' && count($response->results) > 0) {
+			$data = $response->results[0];
+			$result['latitude'] = $data->geometry->location->lat;
+			$result['longitude'] = $data->geometry->location->lng;
 		}
 
 		return $result;
@@ -401,10 +415,11 @@ class towing extends Module {
 	 * @param array $children
 	 */
 	public function tag_Results($tag_params, $children) {
+		global $db, $images_path;
+
 		$query = null;
 		$query_type = QueryType::CAR;
 		$limit = 10;
-		$manager = CompanyManager::getInstance();
 
 		// get search query
 		if (isset($tag_params['query']))
@@ -419,31 +434,152 @@ class towing extends Module {
 		if (isset($_REQUEST['type']) && array_key_exists($_REQUEST['type'], $this->referrence))
 			$query_type = $this->referrence[$_REQUEST['type']];
 
+		// try to detect query type
+		if (preg_match(self::REGEX_COORDS, $query)) {
+			// coordinates matched
+			$data = explode(' ', $query);
+			$location = array(
+					'latitude'	=> is_numeric($data[0]) ? $data[0] : 0,
+					'longitude'	=> is_numeric($data[1]) ? $data[1] : 0
+				);
+
+		} else {
+			// we have no clue about the format, ask Google
+			$location = $this->getCoordinates($query);
+		}
+
 		// get all companies from database
-		$companies = $manager->getItems(
-			array('id', 'name', 'address', 'latitude', 'longitude'),
-			array(),
-			array('name'),
-			true,
-			$limit
+		$sql = str_replace(
+			array(
+				'{latitude}',
+				'{longitude}',
+				'{support}',
+				'{limit}'
+			),
+			array(
+				$location['latitude'],
+				$location['longitude'],
+				'support_car',
+				50
+			),
+			file_get_contents($this->path.'/data/search.sql')
 		);
+		$companies = $db->get_results($sql);
+
+		// show map
+		$map_template = $this->loadTemplate($tag_params, 'map.xml', 'map_template');
+		$map_template->restoreXML();
+		$map_template->setLocalParams($location);
+		$map_template->parse();
 
 		// load template
 		$template = $this->loadTemplate($tag_params, 'result.xml');
 
-		if (count($companies) > 0)
+		if (count($companies) > 0) {
+			$covered_distance = array();
+			$covered_list = array();
+			$outside_distance = array();
+			$outside_list = array();
+
 			foreach ($companies as $company) {
+				// calculate distance with haversine formula
+				$lat1 = deg2rad($location['latitude']);
+				$lat2 = deg2rad($company->latitude);
+				$delta_latitude = deg2rad($company->latitude - $location['latitude']);
+				$delta_longitude = deg2rad($company->longitude - $location['longitude']);
+
+				$a = sin($delta_latitude / 2) * sin($delta_latitude / 2) +
+					cos($lat1) * cos($lat2) *
+					sin($delta_longitude / 2) * sin($delta_longitude / 2);
+				$c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+
+				$radius = 3959;  // earth radius in miles
+				$distance = $radius * $c;
+
+				// store company and distance for later use
+				if ($company->radius * 1.3 >= $distance) {
+					$covered_distance[$company->id] = $distance;
+					$covered_list[$company->id] = $company;
+
+				} else {
+					$outside_distance[$company->id] = $distance;
+					$outside_list[$company->id] = $company;
+				}
+			}
+
+			// sort by distance
+			asort($covered_distance);
+
+			foreach ($covered_distance as $company_id => $distance) {
+				$company = $covered_list[$company_id];
+
+				$file_name = $images_path.'company_logos/'.$company->id.'.jpg';
+				if (file_exists($file_name))
+					$logo_url = url_GetFromFilePath($file_name); else
+					$logo_url = url_GetFromFilePath(_BASEPATH.'/'.$images_path.'default_logo.svg');
+
+				// prepare parameters
 				$params = array(
-					'name'		=> $company->name,
-					'address'	=> $company->address,
-					'latitude'	=> $company->latitude,
-					'longitude'	=> $company->longitude
+					'id'			=> $company->id,
+					'name'			=> $company->name,
+					'address'		=> $company->address,
+					'city'			=> $company->city,
+					'state'			=> $company->state,
+					'logo_url'		=> $logo_url,
+					'latitude'		=> $company->latitude,
+					'longitude'		=> $company->longitude,
+					'distance'		=> $distance >= 5 ? round($distance) : round($distance, 1),
+					'likes'			=> $company->likes,
+					'dislikes'		=> $company->dislikes,
+					'phone'			=> '054-222-'.rand(1, 1000), // $company->phone ||,
+					'description'	=> $company->description
 					);
 
 				$template->restoreXML();
 				$template->setLocalParams($params);
 				$template->parse();
 			}
+
+			// show companies outside of the support radius
+			if (count($covered_distance) < 10) {
+				// show message
+				$message_template = $this->loadTemplate($tag_params, 'result_message.xml', 'message_template');
+				$message_template->restoreXML();
+				$message_template->parse();
+
+				// show remaining results
+				$outside_distance = array_slice($outside_distance, 0, 10 - count($covered_distance), true);
+				foreach ($outside_distance as $company_id => $distance) {
+					$company = $outside_list[$company_id];
+
+					$file_name = $images_path.'company_logos/'.$company->id.'.jpg';
+					if (file_exists($file_name))
+						$logo_url = url_GetFromFilePath($file_name); else
+						$logo_url = url_GetFromFilePath(_BASEPATH.'/'.$images_path.'default_logo.svg');
+
+					// prepare parameters
+					$params = array(
+						'id'			=> $company->id,
+						'name'			=> $company->name,
+						'address'		=> $company->address,
+						'city'			=> $company->city,
+						'state'			=> $company->state,
+						'logo_url'		=> $logo_url,
+						'latitude'		=> $company->latitude,
+						'longitude'		=> $company->longitude,
+						'distance'		=> $distance >= 5 ? round($distance) : round($distance, 1),
+						'likes'			=> $company->likes,
+						'dislikes'		=> $company->dislikes,
+						'phone'			=> '054-222-'.rand(1, 1000), // $company->phone ||,
+						'description'	=> $company->description
+						);
+
+					$template->restoreXML();
+					$template->setLocalParams($params);
+					$template->parse();
+				}
+			}
+		}
 	}
 
 	/**
