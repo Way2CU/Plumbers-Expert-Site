@@ -20,9 +20,16 @@ class CompanyManager extends ItemManager {
 		$this->addProperty('longitude', 'decimal');
 		$this->addProperty('radius', 'smallint');
 		$this->addProperty('phone', 'varchar');
+		$this->addProperty('promoted', 'boolean');
 		$this->addProperty('promotion', 'text');
 		$this->addProperty('promotion_date', 'date');
 		$this->addProperty('description', 'text');
+		$this->addProperty('support_car', 'boolean');
+		$this->addProperty('support_motorcycle', 'boolean');
+		$this->addProperty('support_truck', 'boolean');
+		$this->addProperty('likes', 'int');
+		$this->addProperty('dislikes', 'int');
+		$this->addProperty('active', 'boolean');
 	}
 
 	/**
