@@ -1,0 +1,27 @@
+SELECT
+	id,
+	oid,
+	name,
+	address,
+	city,
+	state,
+	description,
+	latitude,
+	longitude,
+	SQRT(
+		POW(longitude - {longitude}, 2) +
+		POW(latitude - {latitude}, 2)
+	) AS distance, -- we do a ugly distance calculation, correct number is calculated later
+	radius,
+	phone,
+	promoted,
+	likes,
+	dislikes
+FROM towing_companies
+WHERE
+	{support} = 1 AND
+	active = 1
+ORDER BY
+	promoted DESC,
+	distance ASC
+LIMIT {limit}
