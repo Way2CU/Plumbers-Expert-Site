@@ -22,28 +22,8 @@
 
 			<div id="results">
 				<!-- Google map -->
-				<div id="map">
-					<div class="overlay">
-						<cms:text constant="show_map"/>
-						<a href="javascript:void(0);" class="show">
-							<svg viewBox="0 0 123 100">
-								<use xlink:href="#icon-map"/>
-							</svg>
-						</a>
 
-					</div>
-
-					<a href="javascript:void(0);" class="hide">
-						<img
-							src="_BASEURL.'/modules/collection/images/close_button.svg'"
-							alt="hide_map"
-							cms:eval="src"
-							cms:constant="alt"
-							/>
-					</a>
-				</div>
-
-				<!-- Search results -->
+				<!-- Search results and Google map -->
 				<section cms:skip_cache="1">
 					<cms:module
 						name="towing"
