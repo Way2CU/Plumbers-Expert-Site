@@ -3,7 +3,7 @@
 <document>
 	<form action="$params['form_action']" cms:eval="action" method="POST" enctype="multipart/form-data">
 		<label>
-			<span><cms:text constant="label_api_key" module="towing"/></span>
+			<span><cms:text constant="label_api_key" module="listing"/></span>
 			<input
 				type="text"
 				name="api_key"

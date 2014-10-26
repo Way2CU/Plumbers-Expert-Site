@@ -26,7 +26,7 @@
 				<!-- Search results and Google map -->
 				<section cms:skip_cache="1">
 					<cms:module
-						name="towing"
+						name="listing"
 						action="show_results"
 						/>
 				</section>

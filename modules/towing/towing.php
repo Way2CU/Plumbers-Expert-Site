@@ -21,7 +21,7 @@ final class QueryType {
 }
 
 
-class towing extends Module {
+class listing extends Module {
 	private static $_instance;
 
 	private $referrence = array(
@@ -44,8 +44,8 @@ class towing extends Module {
 		if ($section == 'backend' && class_exists('backend')) {
 			$backend = backend::getInstance();
 
-			$towing_menu = new backend_MenuItem(
-					$this->getLanguageConstant('menu_towing'),
+			$listing_menu = new backend_MenuItem(
+					$this->getLanguageConstant('menu_listing'),
 					url_GetFromFilePath($this->path.'images/icon.svg'),
 					'javascript:void(0);',
 					$level=5
@@ -55,7 +55,7 @@ class towing extends Module {
 					$this->getLanguageConstant('menu_update'),
 					url_GetFromFilePath($this->path.'images/update.svg'),
 					window_Open(
-						'towing_update',
+						'listing_update',
 						350,
 						$this->getLanguageConstant('title_update'),
 						true, true,
@@ -64,11 +64,11 @@ class towing extends Module {
 					$level=5
 				));
 
-			$towing_menu->addChild('', new backend_MenuItem(
+			$listing_menu->addChild('', new backend_MenuItem(
 					$this->getLanguageConstant('menu_index'),
 					url_GetFromFilePath($this->path.'images/index.svg'),
 					window_Open(
-						'towing_index',
+						'listing_index',
 						650,
 						$this->getLanguageConstant('title_index'),
 						true, true,
@@ -77,13 +77,13 @@ class towing extends Module {
 					$level=5
 				));
 
-			$towing_menu->addSeparator(5);
+			$listing_menu->addSeparator(5);
 
-			$towing_menu->addChild('', new backend_MenuItem(
+			$listing_menu->addChild('', new backend_MenuItem(
 					$this->getLanguageConstant('menu_set_api_key'),
 					url_GetFromFilePath($this->path.'images/api_key.svg'),
 					window_Open(
-						'towing_api_key',
+						'listing_api_key',
 						350,
 						$this->getLanguageConstant('title_api_key'),
 						true, true,
@@ -92,7 +92,7 @@ class towing extends Module {
 					$level=5
 				));
 
-			$backend->addMenu($this->name, $towing_menu);
+			$backend->addMenu($this->name, $listing_menu);
 		}
 	}
 
@@ -159,7 +159,7 @@ class towing extends Module {
 		global $db;
 
 		$sql = "
-			CREATE TABLE IF NOT EXISTS `towing_companies` (
+			CREATE TABLE IF NOT EXISTS `listing_companies` (
 				`id` int NOT NULL AUTO_INCREMENT,
 				`oid` int NOT NULL,
 				`name` varchar(150) NOT NULL,
@@ -199,7 +199,7 @@ class towing extends Module {
 	 */
 	public function onDisable() {
 		global $db;
-		$db->drop_tables(array('towing_companies'));
+		$db->drop_tables(array('listing_companies'));
 	}
 
 	/**
@@ -237,7 +237,7 @@ class towing extends Module {
 
 		$params = array(
 				'form_action'	=> backend_UrlMake($this->name, 'update_commit'),
-				'cancel_action'	=> window_Close('towing_update')
+				'cancel_action'	=> window_Close('listing_update')
 			);
 
 		$template->restoreXML();
@@ -312,7 +312,7 @@ class towing extends Module {
 			$params = array(
 					'message'	=> $message,
 					'button'	=> $this->getLanguageConstant('close'),
-					'action'	=> window_Close('towing_update')
+					'action'	=> window_Close('listing_update')
 				);
 
 			$template->restoreXML();
@@ -326,7 +326,7 @@ class towing extends Module {
 			$params = array(
 					'message'	=> $this->getLanguageConstant('message_update_failed'),
 					'button'	=> $this->getLanguageConstant('close'),
-					'action'	=> window_Close('towing_update')
+					'action'	=> window_Close('listing_update')
 				);
 
 			$template->restoreXML();
@@ -344,7 +344,7 @@ class towing extends Module {
 
 		$params = array(
 				'form_action'	=> backend_UrlMake($this->name, 'api_key_save'),
-				'cancel_action'	=> window_Close('towing_api_key')
+				'cancel_action'	=> window_Close('listing_api_key')
 			);
 
 		$template->restoreXML();
@@ -363,7 +363,7 @@ class towing extends Module {
 		$params = array(
 				'message'	=> $this->getLanguageConstant('message_api_key_saved'),
 				'button'	=> $this->getLanguageConstant('close'),
-				'action'	=> window_Close('towing_api_key')
+				'action'	=> window_Close('listing_api_key')
 			);
 
 		$template->restoreXML();

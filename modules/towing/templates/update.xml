@@ -3,7 +3,7 @@
 <document>
 	<form action="$params['form_action']" cms:eval="action" method="POST" enctype="multipart/form-data">
 		<label>
-			<span><cms:text constant="label_file" module="towing"/></span>
+			<span><cms:text constant="label_file" module="listing"/></span>
 			<input type="file" name="update_file"/>
 		</label>
 

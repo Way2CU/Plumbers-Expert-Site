@@ -7,7 +7,7 @@ class CompanyManager extends ItemManager {
 	 * Constructor
 	 */
 	protected function __construct() {
-		parent::__construct('towing_companies');
+		parent::__construct('listing_companies');
 
 		$this->addProperty('id', 'int');
 		$this->addProperty('oid', 'int');

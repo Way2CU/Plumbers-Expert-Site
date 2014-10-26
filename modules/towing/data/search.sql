@@ -17,7 +17,7 @@ SELECT
 	promoted,
 	likes,
 	dislikes
-FROM towing_companies
+FROM listing_companies
 WHERE
 	{support} = 1 AND
 	active = 1
