@@ -40,7 +40,12 @@
 		<!-- Search query -->
 		<span><cms:text constant="label_search_query"/></span>
 		<label>
-			<svg viewBox="0 0 113 100"><use xlink:href="#icon-home"/></svg>
+			<svg viewBox="0 0 113 100">
+				<use
+					xlink:href="_BASEURL.'/site/images/sprites.svg#icon-home'"
+					cms:eval="xlink:href"
+					/>
+			</svg>
 			<input
 				type="search"
 				name="query"
@@ -53,14 +58,24 @@
 
 			<!-- Locate by GPS button -->
 			<a href="javascript: void(0);" class="gps">
-				<svg viewBox="0 0 95 100"><use xlink:href="#icon-gps"/></svg>
+				<svg viewBox="0 0 95 100">
+					<use
+						xlink:href="_BASEURL.'/site/images/sprites.svg#icon-gps'"
+						cms:eval="xlink:href"
+						/>
+				</svg>
 			</a>
 		</label>
 
 		<div class="controls">
 			<button type="submit">
 				<cms:text constant="search"/>
-				<svg viewBox="0 0 100 100"><use xlink:href="#icon-search"/></svg>
+				<svg viewBox="0 0 100 100">
+					<use
+						xlink:href="_BASEURL.'/site/images/sprites.svg#icon-search'"
+						cms:eval="xlink:href"
+						/>
+				</svg>
 			</button>
 		</div>
 	</form>

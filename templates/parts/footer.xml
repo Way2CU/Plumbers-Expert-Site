@@ -20,7 +20,12 @@
 					<cms:text constant="add_company"/>
 					<a href="" cms:eval="href">
 						<cms:text constant="contactus_link"/>
-						<svg viewBox="0 0 100 100"><use xlink:href="#icon-form"/></svg>
+						<svg viewBox="0 0 100 100">
+							<use
+								xlink:href="_BASEURL.'/site/images/sprites.svg#icon-form'"
+								cms:eval="xlink:href"
+								/>
+						</svg>
 					</a>
 					<span><cms:text constant="get_company_listed"/></span>
 				</div>
@@ -31,7 +36,7 @@
 						action="show"
 						text_id="footer_text"
 						template="parts/footer_article.xml"
-					/>
+						/>
 				</div>
 
 				<small>
