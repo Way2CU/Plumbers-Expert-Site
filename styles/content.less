@@ -72,6 +72,15 @@ div#results {
 	margin-right: auto;
 }
 
+div#results section > em {
+	display: block;
+
+	padding-top: 10px;
+	padding-bottom: 15px;
+
+	text-align: center;
+}
+
 div#results div.result {
 	display: block;
 	margin-bottom: 5px;
@@ -90,14 +99,13 @@ div#results div.result figure {
 	height: 3rem;
 
 	margin: 0px;
-	margin-right: 10px;
 	padding: 10px;
 }
 
 div#results div.result div.summary {
 	display: inline-block;
 	vertical-align: top;
-	width: 50%;
+	width: 45%;
 	min-height: 3rem;
 
 	margin-right: 1px;
@@ -122,8 +130,118 @@ div#results div.result div.summary h3 {
 div#results div.result div.call_to_action {
 	display: inline-block;
 	vertical-align: top;
-	width: calc(~'50% - 72px - 3rem');
+	width: calc(~'55% - 62px - 3rem');
 	padding: 10px;
+}
+
+div#results div.result div.call_to_action > div {
+	display: inline-block;
+	vertical-align: top;
+}
+
+div#results div.result div.distance {
+	display: inline-block;
+	vertical-align: top;
+	min-width: 13em;
+
+	margin-right: 1.5em;
+	padding: 0.8em 0px;
+
+	border-right: 1px solid fadeout(@color_title, 70%);
+	color: @color_title;
+}
+
+div#results div.result div.distance svg {
+	display: inline-block;
+	vertical-align: middle;
+	width: 1.5em;
+	height: 1.5em;
+
+	margin-right: 5px;
+	margin-top: -2px;
+	fill: @color_title;
+}
+
+div#results div.result div.rating {
+	display: inline-block;
+	min-width: 10em;
+	vertical-align: middle;
+
+	color: @color_title;
+}
+
+div#results div.result div.rating span {
+	display: block;
+	padding-bottom: 5px;
+}
+
+div#results div.result div.rating a {
+	display: inline-block;
+	min-width: 50px;
+
+	margin-right: 10px;
+
+	color: @color_title;
+	text-decoration: none;
+}
+
+div#results div.result div.rating a svg {
+	display: inline-block;
+	vertical-align: middle;
+	width: 1.2em;
+	height: 1.2em;
+	fill: @color_title;
+
+	margin-right: 5px;
+
+	position: relative;
+	top: -3px;
+
+	transition: fill 0.3s;
+}
+
+div#results div.result div.rating a:hover svg {
+	fill: lighten(@color_title, 20%);
+}
+
+div#results div.result div.rating a:nth-of-type(2) svg {
+	top: 2px;
+}
+
+div#results div.result div.call_to_action > a {
+	display: inline-block;
+	float: right;
+
+	margin-top: 0.35em;
+	margin-bottom: 0.35em;
+	padding: 0.6em;
+
+	border-radius: @control_border_radius;
+	background-color: @color_button;
+
+	color: @color_button_text;
+	font-size: 1.1em;
+	text-align: center;
+	text-decoration: none;
+	line-height: 100%;
+
+	transition: all 0.3s;
+}
+
+div#results div.result div.call_to_action > a:hover {
+	background-color: lighten(@color_button, 5%);
+}
+
+div#results div.result div.call_to_action > a svg {
+	display: inline-block;
+	vertical-align: middle;
+	width: 1em;
+	height: 1em;
+
+	margin-top: -4px;
+	margin-right: 5px;
+
+	fill: @color_button_text;
 }
 
 div#map {
@@ -185,7 +303,7 @@ div#map div.overlay a.show {
 	background-color: @color_button;
 	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 
-	color: @color_header_text;
+	color: @color_button_text;
 	transition: all 0.3s;
 	line-height: 0px;
 }
