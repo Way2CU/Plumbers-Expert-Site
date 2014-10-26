@@ -17,6 +17,9 @@ function Map() {
 	self.overlay = null;
 	self.button_show = null;
 	self.button_hide = null;
+	self.center = {};
+	self.initial_zoom = 9;
+	self.bounds = null;
 
 	/**
 	 * Complete object initialization.
@@ -27,13 +30,19 @@ function Map() {
 		self.button_show = self.overlay.find('a.show');
 		self.button_hide = self.container.find('a.hide');
 
+		// store our current location
+		self.center = {
+				lat: self.container.data('latitude'),
+				lng: self.container.data('longitude')
+			};
+
 		// create Google Map
 		var options = {
 			backgroundColor: 'white',
 			noClear: true,
-			center: {lat: 26.15801000, lng: -97.98250200},
-			zoom: 15,
-			minZoom: 0,
+			center: self.center,
+			zoom: self.initial_zoom,
+			minZoom: 7,
 			mapTypeControl: false,
 			panControl: false,
 			rotateControl: false,
@@ -56,6 +65,22 @@ function Map() {
 	self._create_markers = function() {
 		var results = $('div#results div.result');
 
+		// create bounds object
+		self.bounds = new google.maps.LatLngBounds();
+
+		// create our own location marker
+		var base = $('base').attr('href');
+		new google.maps.Marker({
+			title: language_handler.getText(null, 'your_location'),
+			position: self.center,
+			map: self.map,
+			animation: google.maps.Animation.DROP,
+			icon: base + '/site/images/pin.png'
+		});
+
+		// self.bounds.extend(self.center);
+
+		// create marker for each result
 		results.each(function(index) {
 			var result = $(this);
 			var title = result.find('h3').html();
@@ -64,11 +89,16 @@ function Map() {
 				result.data('longitude')
 				);
 
+			// create marker
 			var marker = new google.maps.Marker({
 					title: title,
 					position: position,
-					map: self.map
+					map: self.map,
+					animation: google.maps.Animation.DROP
 				});
+
+			// extend map bounds with marker position
+			self.bounds.extend(marker.getPosition());
 		});
 	};
 
@@ -86,7 +116,7 @@ function Map() {
 		// let map know we've resized
 		setTimeout(function() {
 			google.maps.event.trigger(self.map, 'resize');
-			self.map.panTo({lat: 26.15801000, lng: -97.98250200});
+			self.map.fitBounds(self.bounds);
 		}, 500);
 	};
 
