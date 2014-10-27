@@ -2,10 +2,10 @@
 <!DOCTYPE document SYSTEM "../../units/schema/language.dtd">
 <document>
 	<div
-		class="result"
+		class="!$params['promoted'] ? 'result' : 'result promoted'"
 		data-latitude="$params['latitude']"
 		data-longitude="$params['longitude']"
-		cms:eval="data-latitude,data-longitude"
+		cms:eval="class,data-latitude,data-longitude"
 		>
 
 		<!-- Logo -->
@@ -22,11 +22,16 @@
 		<!-- Top row -->
 		<div class="summary">
 			<h3><cms:var name="$params['name']"/></h3>
+
 			<cms:if condition="!empty($params['address'])">
 				<cms:var name="$params['address']"/><cms:raw text=", "/>
 			</cms:if>
 			<cms:var name="$params['city']"/><cms:raw text=", "/>
 			<cms:var name="$params['state']"/>
+
+			<svg viewBox="0 0 115 100">
+				<use xlink:href="#icon-triangle"/>
+			</svg>
 		</div>
 
 		<div class="call_to_action">
@@ -92,6 +97,12 @@
 				</svg>
 				<cms:var name="$params['phone']"/>
 			</a>
+		</div>
+
+		<div class="details">
+			<div>
+				<cms:var name="$params['description']"/>
+			</div>
 		</div>
 	</div>
 </document>
