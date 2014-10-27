@@ -15,10 +15,10 @@
 
 		<div class="copyright">
 			<div class="inner_wrap">
+				<!-- Get your company listed -->
 				<div class="left_container">
-					<!-- Container for copyright and contect form link -->
 					<cms:text constant="add_company"/>
-					<a href="" cms:eval="href">
+					<a href="javascript:void(0);">
 						<cms:text constant="contactus_link"/>
 						<svg viewBox="0 0 100 100">
 							<use
@@ -27,9 +27,18 @@
 								/>
 						</svg>
 					</a>
-					<span><cms:text constant="get_company_listed"/></span>
+
+					<section>
+						<h4><cms:text constant="get_company_listed"/></h4>
+						<cms:module
+							name="contact_form"
+							action="show"
+							text_id="contact"
+						/>
+					</section>
 				</div>
 
+				<!-- Privacy policy -->
 				<div class="right_container">
 					<cms:module
 						name="articles"
@@ -39,6 +48,7 @@
 						/>
 				</div>
 
+				<!-- Copyright -->
 				<small>
 					<svg viewBox="0 0 87 100"><use xlink:href="#icon-way2cu"/></svg>
 					<cms:text constant="copyright"/>
