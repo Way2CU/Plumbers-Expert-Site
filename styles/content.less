@@ -86,6 +86,7 @@ div#results div.result {
 	margin-bottom: 5px;
 
 	background-color: @color_result_background;
+	white-space: nowrap;
 }
 
 div#results div.result:last-of-type {
@@ -104,9 +105,11 @@ div#results div.result figure {
 
 div#results div.result div.summary {
 	display: inline-block;
-	vertical-align: top;
+	vertical-align: middle;
 	width: 45%;
 	min-height: 3rem;
+
+	position: relative;
 
 	margin-right: 1px;
 	padding: 10px;
@@ -115,6 +118,36 @@ div#results div.result div.summary {
 	background-color: darken(@color_result_background, 5%);
 
 	color: lighten(@color_text, 15%);
+	cursor: pointer;
+}
+
+div#results div.result.promoted div.summary {
+	padding-top: 20px;
+	padding-bottom: 20px;
+
+	background-color: @color_selection;
+	color: @color_selection_text;
+}
+
+div#results div.result div.summary svg {
+	position: absolute;
+	width: 1em;
+	height: 1em;
+	top: 50%;
+	right: 10px;
+
+	margin-top: -0.5em;
+	fill: @color_title;
+
+	transition: 0.5s transform;
+}
+
+div#results div.result.promoted div.summary svg {
+	fill: @color_selection_text;
+}
+
+div#results div.result.detailed div.summary svg {
+	transform: scaleY(-1);
 }
 
 div#results div.result div.summary h3 {
@@ -127,28 +160,36 @@ div#results div.result div.summary h3 {
 	line-height: 100%;
 }
 
+div#results div.result.promoted div.summary h3 {
+	color: @color_selection_text;
+}
+
 div#results div.result div.call_to_action {
 	display: inline-block;
-	vertical-align: top;
+	vertical-align: middle;
 	width: calc(~'55% - 62px - 3rem');
 	padding: 10px;
 }
 
 div#results div.result div.call_to_action > div {
 	display: inline-block;
-	vertical-align: top;
+	vertical-align: middle;
 }
 
 div#results div.result div.distance {
 	display: inline-block;
-	vertical-align: top;
+	vertical-align: middle;
 	min-width: 13em;
 
 	margin-right: 1.5em;
-	padding: 0.8em 0px;
+	padding: 10px 0px;
 
 	border-right: 1px solid fadeout(@color_title, 70%);
 	color: @color_title;
+}
+
+div#results div.result.promoted div.distance {
+	padding: 20px 0px;
 }
 
 div#results div.result div.distance svg {
@@ -210,10 +251,8 @@ div#results div.result div.rating a:nth-of-type(2) svg {
 
 div#results div.result div.call_to_action > a {
 	display: inline-block;
-	float: right;
+	vertical-align: middle;
 
-	margin-top: 0.35em;
-	margin-bottom: 0.35em;
 	padding: 0.6em;
 
 	border-radius: @control_border_radius;
@@ -244,8 +283,31 @@ div#results div.result div.call_to_action > a svg {
 	fill: @color_button_text;
 }
 
+div#results div.result div.details {
+	opacity: 0;
+	overflow: hidden;
+	max-height: 0px;
+
+	background-color: @color_background;
+	white-space: normal;
+
+	transition: opacity 0.3s, max-height 0.3s;
+	transition-delay: 0s;
+
+	will-change: opacity, max-height;
+}
+
+div#results div.result div.details div {
+	padding: 20px;
+}
+
+div#results div.result.detailed div.details {
+	opacity: 1;
+	max-height: 400px;
+	transition-delay: 0.3s, 0s;
+}
+
 div#map {
-	display: block;
 	height: 70px;
 
 	position: relative;
