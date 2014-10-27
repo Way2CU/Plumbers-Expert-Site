@@ -9,13 +9,14 @@
 var TowExpert = TowExpert || {};
 
 
-function SearchBar() {
+function Search() {
 	var self = this;
 
 	self.search_form = null;
 	self.input_field = null;
 	self.gps_links = null;
 	self.vehicle_type = null;
+	self.results = null;
 
 	/**
 	 * Complete object initialization.
@@ -25,6 +26,7 @@ function SearchBar() {
 		self.vehicle_type = self.search_form.find('input[name=type]')
 		self.input_field = self.search_form.find('input[name=query]');
 		self.gps_links = $('a.gps');
+		self.results = $('div#results div.result');
 
 		// connect events
 		self.gps_links.click(self._handle_gps_click);
@@ -32,7 +34,17 @@ function SearchBar() {
 		self.input_field
 				.focus(self._handle_input_focus)
 				.blur(self._handle_input_blur);
+		self.results.find('div.summary').click(self._handle_result_click);
 	}
+
+	self._handle_result_click = function(event) {
+		event.preventDefault();
+		var summary = $(this);
+		var result = summary.closest('div.result');
+
+		self.results.not(result).removeClass('detailed');
+		result.toggleClass('detailed');
+	};
 
 	/**
 	 * Handle input field gaining focus.
@@ -130,8 +142,64 @@ function SearchBar() {
 }
 
 
+function Contact() {
+	var self = this;
+
+	self.button_contact = null;
+	self.button_cancel = null;
+	self.container = null;
+
+	/**
+	 * Complete object initialization.
+	 */
+	self._init = function() {
+		self.container = $('footer form');
+		self.button_contact = $('footer div.left_container a');
+		self.button_cancel = self.container.find('button[type=button]');
+
+		// connect events
+		self.button_contact.click(self._handle_contact_click);
+		self.button_cancel.click(self._handle_cancel_click);
+		self.container.on('analytics-event', self._handle_submission);
+	}
+
+	/**
+	 * Handle successful submission.
+	 *
+	 * @param object event
+	 */
+	self._handle_submission = function(event) {
+		self.container.removeClass('visible');
+	};
+
+	/**
+	 * Handle clicking on contact us link.
+	 *
+	 * @param object event
+	 */
+	self._handle_contact_click = function(event) {
+		event.preventDefault();
+		self.container.addClass('visible');
+	};
+
+	/**
+	 * Handle clicking on form cancel button.
+	 *
+	 * @param object event
+	 */
+	self._handle_cancel_click = function(event) {
+		event.preventDefault();
+		self.container.removeClass('visible');
+	};
+
+	// finalize object
+	self._init();
+}
+
+
 function on_site_load() {
-	TowExpert.search_bar = new SearchBar();
+	TowExpert.search_bar = new Search();
+	TowExpert.contact_from = new Contact();
 
 	if ($('div#map').length > 0)
 		TowExpert.map = new Map();
