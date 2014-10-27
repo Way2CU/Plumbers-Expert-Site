@@ -51,7 +51,7 @@ class listing extends Module {
 					$level=5
 				);
 
-			$towing_menu->addChild('', new backend_MenuItem(
+			$listing_menu->addChild('', new backend_MenuItem(
 					$this->getLanguageConstant('menu_update'),
 					url_GetFromFilePath($this->path.'images/update.svg'),
 					window_Open(
@@ -532,7 +532,8 @@ class listing extends Module {
 					'likes'			=> $company->likes,
 					'dislikes'		=> $company->dislikes,
 					'phone'			=> '054-222-'.rand(1, 1000), // $company->phone ||,
-					'description'	=> $company->description
+					'description'	=> $company->description,
+					'promoted'		=> $company->promoted
 					);
 
 				$template->restoreXML();
@@ -571,7 +572,8 @@ class listing extends Module {
 						'likes'			=> $company->likes,
 						'dislikes'		=> $company->dislikes,
 						'phone'			=> '054-222-'.rand(1, 1000), // $company->phone ||,
-						'description'	=> $company->description
+						'description'	=> $company->description,
+						'promoted'		=> $company->promoted
 						);
 
 					$template->restoreXML();
@@ -580,14 +582,5 @@ class listing extends Module {
 				}
 			}
 		}
-	}
-
-	/**
-	 * Tag handler for drawing company details.
-	 *
-	 * @param array $tag_params
-	 * @param array $children
-	 */
-	public function tag_Company($tag_params, $children) {
 	}
 }
