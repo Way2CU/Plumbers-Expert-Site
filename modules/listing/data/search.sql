@@ -22,6 +22,5 @@ WHERE
 	{support} = 1 AND
 	active = 1
 ORDER BY
-	promoted DESC,
 	distance ASC
 LIMIT {limit}
