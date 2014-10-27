@@ -91,6 +91,7 @@ footer div.left_container {
 
 	margin-right: 40px;
 	padding: 10px;
+	position: relative;
 
 	border: 1px solid fadeout(@color_title, 40%);
 
@@ -123,7 +124,7 @@ footer div.left_container a {
 	border-radius: @control_border_radius;
 	background-color: @color_selection;
 
-	color: @color_footer_text;
+	color: @color_selection_text;
 	text-align: center;
 	text-decoration: none;
 }
@@ -139,12 +140,16 @@ footer div.left_container a svg {
 	right: 0px;
 }
 
-footer div.left_container span {
+footer div.left_container h4 {
 	display: block;
+	margin: 0px;
 	margin-top: 10px;
 	padding-top: 5px;
 
 	border-top: 1px solid fadeout(@color_footer_text, 40%);
+	font-size: 1rem;
+	font-weight: normal;
+	font-family: Roboto;
 }
 
 footer div.right_container {
@@ -152,6 +157,82 @@ footer div.right_container {
 	max-width: 700px;
 
 	vertical-align: top;
+}
+
+/**
+ * Contact form
+ */
+footer div.left_container form {
+	position: absolute;
+	bottom: 80%;
+	right: -1px;
+
+	padding: 10px;
+
+	border: 1px solid @color_selection;
+	background-color: @color_background;
+	color: @color_text;
+
+	visibility: hidden;
+	opacity: 0;
+
+	transition: opacity 0.5s, visibility 0.5s, bottom 0.3s;
+	transition-delay: 0s, 0s, 0.2s;
+}
+
+footer div.left_container form.visible {
+	bottom: calc(~'100% + 5px');
+	visibility: visible;
+	opacity: 1;
+}
+
+footer form label {
+	display: block;
+	margin-bottom: 10px;
+}
+
+footer form label span {
+	display: inline-block;
+	min-width: 60px;
+
+	padding: 0px 10px;
+	text-align: right;
+}
+
+footer form label input {
+	padding: 5px;
+
+	border: 1px solid lighten(@color_text, 50%);
+	color: @color_text;
+
+	transition: border-color 0.3s;
+}
+
+footer form label input:focus {
+	border-color: @color_selection;
+}
+
+footer form button {
+	margin-left: 5px;
+	margin-right: 5px;
+	padding: 7px 15px;
+
+	border: 0px;
+	border-radius: @control_border_radius;
+	background-color: @color_selection;
+
+	color: @color_selection_text;
+	font-size: 1rem;
+
+	transition: all 0.3s;
+}
+
+footer form button:hover {
+	background-color: lighten(@color_selection, 10%);
+}
+
+footer form button:active {
+	background-color: darken(@color_selection, 10%);
 }
 
 /**
