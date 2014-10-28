@@ -9,17 +9,19 @@
 		>
 		<div class="inner_wrap">
 			<!-- Logo and slogan -->
-			<a
-				href="url_Make()"
-				class="logo"
-				cms:eval="href"
-			>
-				<cms:text constant="site_title"/>
-			</a>
+			<section>
+				<a
+					href="url_Make()"
+					class="logo"
+					cms:eval="href"
+					>
+					<cms:text constant="site_title"/>
+				</a>
 
-			<cms:if section="home">
-				<h1><cms:text constant="slogan"/></h1>
-			</cms:if>
+				<cms:if condition="$section == 'home' or _MOBILE_VERSION">
+					<h1><cms:text constant="slogan"/></h1>
+				</cms:if>
+			</section>
 
 			<!-- Search form -->
 			<cms:template file="parts/search_form.xml"/>
