@@ -1,31 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE document SYSTEM "../../../units/schema/template.dtd">
 <document>
-	<div
-		id="map"
-		data-latitude="$params['latitude']"
-		data-longitude="$params['longitude']"
-		cms:eval="data-latitude,data-longitude"
-		>
-		<div class="overlay">
-			<cms:text constant="show_map"/>
-			<a href="javascript:void(0);" class="show">
-				<svg viewBox="0 0 123 100">
-					<use
-						xlink:href="_BASEURL.'/site/images/sprites.svg#icon-map'"
-						cms:eval="xlink:href"
-						/>
-				</svg>
+	<cms:desktop>
+		<div
+			id="map"
+			data-latitude="$params['latitude']"
+			data-longitude="$params['longitude']"
+			cms:eval="data-latitude,data-longitude"
+			>
+			<div class="overlay">
+				<cms:text constant="show_map"/>
+				<a href="javascript:void(0);" class="show">
+					<svg viewBox="0 0 123 100">
+						<use
+							xlink:href="_BASEURL.'/site/images/sprites.svg#icon-map'"
+							cms:eval="xlink:href"
+							/>
+					</svg>
+				</a>
+			</div>
+
+			<a href="javascript:void(0);" class="hide">
+				<img
+					src="_BASEURL.'/modules/collection/images/close_button.svg'"
+					alt="hide_map"
+					cms:eval="src"
+					cms:constant="alt"
+					/>
 			</a>
 		</div>
-
-		<a href="javascript:void(0);" class="hide">
-			<img
-				src="_BASEURL.'/modules/collection/images/close_button.svg'"
-				alt="hide_map"
-				cms:eval="src"
-				cms:constant="alt"
-				/>
-		</a>
-	</div>
+	</cms:desktop>
 </document>
