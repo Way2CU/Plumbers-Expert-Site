@@ -13,7 +13,7 @@
 
 		<!-- Form labels -->
 		<constant name="label_vehicle_type">Vehicle type:</constant>
-		<constant name="label_search_query">Search by address, zip code or company:</constant>
+		<constant name="label_search_query">Search by address, zip code, etc.:</constant>
 		<constant name="search_example">eg. 2033, new york</constant>
 		<constant name="label_distance">&amp;nbsp;mile(s) from you</constant>
 		<constant name="label_rate_us">Rate us:</constant>
