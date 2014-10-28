@@ -40,12 +40,14 @@
 		<!-- Search query -->
 		<span><cms:text constant="label_search_query"/></span>
 		<label>
-			<svg viewBox="0 0 113 100">
-				<use
-					xlink:href="_BASEURL.'/site/images/sprites.svg#icon-home'"
-					cms:eval="xlink:href"
-					/>
-			</svg>
+			<cms:desktop>
+				<svg viewBox="0 0 113 100">
+					<use
+						xlink:href="_BASEURL.'/site/images/sprites.svg#icon-home'"
+						cms:eval="xlink:href"
+						/>
+				</svg>
+			</cms:desktop>
 			<input
 				type="search"
 				name="query"
@@ -69,7 +71,9 @@
 
 		<div class="controls">
 			<button type="submit">
-				<cms:text constant="search"/>
+				<cms:desktop>
+					<cms:text constant="search"/>
+				</cms:desktop>
 				<svg viewBox="0 0 100 100">
 					<use
 						xlink:href="_BASEURL.'/site/images/sprites.svg#icon-search'"
