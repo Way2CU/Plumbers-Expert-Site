@@ -3,15 +3,17 @@
 <document>
 	<footer>
 		<!-- Upper part of footer -->
-		<div class="inner_wrap">
-			<div class="content_container">
-				<h2><cms:text constant="footer_call_to_action"/></h2>
-				<span><cms:text constant="footer_call_to_action2"/></span>
-				<div/>
-			</div>
+		<cms:desktop>
+			<div class="inner_wrap">
+				<div class="content_container">
+					<h2><cms:text constant="footer_call_to_action"/></h2>
+					<span><cms:text constant="footer_call_to_action2"/></span>
+					<div/>
+				</div>
 
-			<div class="mobile_pic"/>
-		</div>
+				<div class="mobile_pic"/>
+			</div>
+		</cms:desktop>
 
 		<div class="copyright">
 			<div class="inner_wrap">
@@ -34,7 +36,7 @@
 							name="contact_form"
 							action="show"
 							text_id="contact"
-						/>
+							/>
 					</section>
 				</div>
 
