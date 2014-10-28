@@ -72,10 +72,14 @@ header.home:before {
 	background-size: 1066px 600px;
 }
 
-header a.logo {
+header section {
 	position: absolute;
 	top: 30px;
 	left: 0px;
+}
+
+header a.logo {
+	display: block;
 
 	padding-left: 55px;
 	padding-top: 0.5em;
@@ -97,6 +101,7 @@ header a.logo {
 
 header.home a.logo {
 	top: 50px;
+	margin-bottom: 50px;
 	padding-left: 75px;
 
 	background-size: 65px 65px;
@@ -106,10 +111,6 @@ header.home a.logo {
 header h1 {
 	display: block;
 	width: 400px;
-
-	position: absolute;
-	top: 200px;
-	left: 0px;
 
 	margin: 0px;
 	padding: 0px;
@@ -189,7 +190,7 @@ header form div.vehicle_type label span {
 	padding: 0px 8px;
 
 	border-radius: @control_border_radius;
-	background-color: fade(@color_background, 30%);
+	background-color: fade(@color_element, 30%);
 	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 
 	font-size: 0px;
@@ -212,7 +213,7 @@ header.home form div.vehicle_type label span:after {
 
 header form div.vehicle_type label span:hover,
 header form div.vehicle_type input:focus + span {
-	background-color: mix(fade(@color_background, 30%), fade(@color_selection, 70%));
+	background-color: mix(fade(@color_element, 30%), fade(@color_selection, 70%));
 }
 
 header form div.vehicle_type input:checked + span {
@@ -269,7 +270,7 @@ header.home form div.vehicle_type input[value=truck]:checked + span:after {
 
 header form > label {
 	border-radius: @control_border_radius 0px 0px @control_border_radius;
-	background-color: @color_background;
+	background-color: @color_element;
 	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
@@ -292,11 +293,11 @@ header form label svg {
 	height: 1.5em;
 
 	padding: 8px;
-	fill: lighten(@color_text, 40%);
+	fill: lighten(@color_element_text, 40%);
 }
 
 header form label a.gps svg {
-	fill: lighten(@color_text, 50%);
+	fill: lighten(@color_element_text, 50%);
 }
 
 header form label a.gps.active svg {
