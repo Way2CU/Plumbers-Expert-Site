@@ -1,0 +1,110 @@
+/**
+ * Content Style Sheet
+ * Tow.Expert
+ *
+ * Copyright (c) 2014. by Way2CU, http://way2cu.com
+ * Authors: Mladen Mijatov
+ */
+
+/**
+ * Search results
+ */
+div#results {
+	padding: 0.5em;
+	background-color: darken(@color_background, 20%);
+}
+
+div#results section > em {
+	display: block;
+
+	padding-top: 1em;
+	padding-bottom: 2em;
+
+	text-align: center;
+}
+
+div#results div.result {
+	display: block;
+	margin-bottom: 0.5em;
+
+	position: relative;
+
+	background-color: @color_result_background;
+	white-space: nowrap;
+
+	color: @color_text;
+}
+
+div#results div.result:nth-of-type(even) {
+	background-color: lighten(@color_result_background, 5%);
+}
+
+div#results div.result:last-of-type {
+	margin-bottom: 0px;
+}
+
+div#results div.result figure {
+	display: inline-block;
+	vertical-align: top;
+	width: 3rem;
+	height: 3rem;
+
+	margin: 0px;
+	padding: 10px;
+}
+
+div#results div.result div.summary {
+	display: inline-block;
+	vertical-align: middle;
+	width: 45%;
+	min-height: 3rem;
+
+	margin-right: 1px;
+	padding: 10px 0px;
+
+	color: lighten(@color_text, 15%);
+	cursor: pointer;
+	overflow: hidden;
+}
+
+div#results div.result div.summary h3 {
+	margin: 0px;
+	padding: 0px;
+
+	font-weight: normal;
+	line-height: 100%;
+}
+
+div#results div.result div.summary svg {
+	position: absolute;
+	width: 1em;
+	height: 1em;
+	top: 50%;
+	right: 10px;
+
+	margin-top: -0.5em;
+	fill: @color_text;
+
+	transition: 0.5s transform;
+}
+
+div#results div.result.promoted div.summary svg {
+	fill: @color_selection_text;
+}
+
+div#results div.result.detailed div.summary svg {
+	transform: scaleY(-1);
+}
+
+div#results div.result div.call_to_action {
+	display: inline-block;
+	vertical-align: middle;
+	width: calc(~'55% - 62px - 3rem');
+	padding: 10px;
+}
+
+div#results div.result div.details {
+	opacity: 0;
+	overflow: hidden;
+	max-height: 0px;
+}

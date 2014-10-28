@@ -1,0 +1,316 @@
+/**
+ * Header Style Sheet
+ * Tow.Expert
+ *
+ * Copyright (c) 2014. by Way2CU, http://way2cu.com
+ * Authors: Mladen Mijatov
+ */
+
+.vehicle_type_icon_size(@height) {
+	@width: 1.4 * @height;
+	width: unit(@width, px);
+	height: unit(@height, px);
+	background-size: unit(@width * 6, px) unit(@height, px);
+}
+
+.vehicle_type_icon_position(@height, @index, @selected) when (@selected = true) {
+	@width: 1.4 * @height;
+	@real_index: @index * 2;
+	background-position: unit(-@real_index * @width, px) 0px;
+}
+
+.vehicle_type_icon_position(@height, @index, @selected) when (default()) {
+	@width: 1.4 * @height;
+	@real_index: @index * 2;
+	background-position: unit(-(@real_index + 1) * @width, px) 0px;
+}
+
+@keyframes gps_animation {
+	from { fill: transparent; }
+	to { fill: @color_button; }
+}
+
+header {
+	background-color: white;
+}
+
+header section {
+	padding: 0.5em;
+}
+
+header.home section {
+	padding-top: 3em;
+	padding-bottom: 3em;
+	text-align: center;
+}
+
+header a.logo {
+	display: inline-block;
+	margin-bottom: 0.2em;
+	padding-left: 1.2em;
+
+	background-image: url(../images/logo.svg);
+	background-repeat: no-repeat;
+	background-size: 1em 1em;
+	background-position: left center;
+
+	color: @color_title;
+	font-size: 1.5rem;
+	font-weight: bold;
+	font-family: Roboto Slab;
+	line-height: 100%;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+header.home a.logo {
+	margin-bottom: 0.4em;
+	padding-left: 0px;
+	padding-top: 3.4em;
+
+	background-size: 3em;
+	background-position: center top;
+}
+
+header h1 {
+	display: block;
+
+	margin: 0px;
+	padding: 0px;
+
+	color: @color_title;
+	font-size: 0.7em;
+	line-height: 100%;
+	text-transform: uppercase;
+}
+
+/**
+ * Search form
+ */
+header form {
+	display: block;
+	padding: 1em;
+
+	background-color: @color_background;
+	color: @color_header_text;
+}
+
+header.home form {
+	padding-top: 2em;
+	padding-bottom: 3em;
+	text-align: center;
+}
+
+header form label {
+	display: inline-block;
+}
+
+header form div.vehicle_type {
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 40px;
+}
+
+header.home form div.vehicle_type {
+	display: block;
+	margin-bottom: 20px;
+	margin-right: 0px;
+}
+
+header form div.vehicle_type > span {
+	display: none;
+}
+
+header.home form > span,
+header.home form div.vehicle_type > span {
+	display: block;
+	padding-bottom: 5px;
+}
+
+header form div.vehicle_type label {
+	margin-right: 10px;
+}
+
+header form div.vehicle_type label:last-of-type {
+	margin-right: 0px;
+}
+
+header form div.vehicle_type input {
+	display: none;
+}
+
+header form div.vehicle_type label span {
+	display: inline-block;
+	padding: 0px 8px;
+
+	border-radius: @control_border_radius;
+	background-color: fade(@color_element, 30%);
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+
+	font-size: 0px;
+	transition: all 0.3s;
+}
+
+header form div.vehicle_type label span:after {
+	display: inline-block;
+	content: '';
+	.vehicle_type_icon_size(41px);
+
+	background-image: url(../images/vehicle_type_icons.svg);
+	background-repeat: no-repeat;
+	transition: all 0.3s;
+}
+
+header.home form div.vehicle_type label span:after {
+	.vehicle_type_icon_size(50px);
+}
+
+header form div.vehicle_type label span:hover,
+header form div.vehicle_type input:focus + span {
+	background-color: mix(fade(@color_element, 30%), fade(@color_selection, 70%));
+}
+
+header form div.vehicle_type input:checked + span {
+	background-color: @color_selection;
+}
+
+header form div.vehicle_type input[value=car] + span:after {
+	.vehicle_type_icon_position(41, 0, false);
+}
+
+header form div.vehicle_type input[value=car]:checked + span:after {
+	.vehicle_type_icon_position(41, 0, true);
+}
+
+header form div.vehicle_type input[value=motorcycle] + span:after {
+	.vehicle_type_icon_position(41, 1, false);
+}
+
+header form div.vehicle_type input[value=motorcycle]:checked + span:after {
+	.vehicle_type_icon_position(41, 1, true);
+}
+
+header form div.vehicle_type input[value=truck] + span:after {
+	.vehicle_type_icon_position(41, 2, false);
+}
+
+header form div.vehicle_type input[value=truck]:checked + span:after {
+	.vehicle_type_icon_position(41, 2, true);
+}
+
+header.home form div.vehicle_type input[value=car] + span:after {
+	.vehicle_type_icon_position(50, 0, false);
+}
+
+header.home form div.vehicle_type input[value=car]:checked + span:after {
+	.vehicle_type_icon_position(50, 0, true);
+}
+
+header.home form div.vehicle_type input[value=motorcycle] + span:after {
+	.vehicle_type_icon_position(50, 1, false);
+}
+
+header.home form div.vehicle_type input[value=motorcycle]:checked + span:after {
+	.vehicle_type_icon_position(50, 1, true);
+}
+
+header.home form div.vehicle_type input[value=truck] + span:after {
+	.vehicle_type_icon_position(50, 2, false);
+}
+
+header.home form div.vehicle_type input[value=truck]:checked + span:after {
+	.vehicle_type_icon_position(50, 2, true);
+}
+
+header form > label {
+	border-radius: @control_border_radius 0px 0px @control_border_radius;
+	background-color: @color_element;
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+header form > label.focus {
+	box-shadow:
+		2px 2px 4px rgba(0, 0, 0, 0.3),
+		inset 0px 0px 1px 1px @color_selection;
+}
+
+header form label svg {
+	display: inline-block;
+	vertical-align: top;
+	width: 1.5em;
+	height: 1.5em;
+
+	padding: 8px;
+	fill: lighten(@color_element_text, 40%);
+}
+
+header form label a.gps {
+	display: inline-block;
+}
+
+header form label a.gps svg {
+	fill: lighten(@color_element_text, 50%);
+}
+
+header form label a.gps.active svg {
+	fill: @color_button;
+	animation: gps_animation 0.7s linear infinite alternate;
+}
+
+header form label a.gps.locked svg {
+	fill: @color_button;
+}
+
+header form label input {
+	width: 55vw;
+	vertical-align: top;
+	padding: 0.6em;
+
+	border: 0px;
+	background-color: transparent;
+
+	color: @color_element_text;
+}
+
+header form input::-moz-focus-inner,
+header form button::-moz-focus-inner {
+	border: 0;
+	padding: 0;
+}
+
+header form div.controls {
+	display: inline-block;
+}
+
+header form div.controls button {
+	display: inline-block;
+	vertical-align: top;
+	padding: 0.5em 1em;
+
+	border: 0px;
+	border-radius: 0px @control_border_radius @control_border_radius 0px;
+	background-color: @color_button;
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+
+	color: @color_button_text;
+	line-height: 0px;
+	transition: all 0.3s;
+}
+
+header form div.controls button svg {
+	display: block;
+	vertical-align: middle;
+	width: 1.5em;
+	height: 1.5em;
+
+	fill: @color_header_text;
+}
+
+header form div.controls button:focus,
+header form div.controls button:hover {
+	background-color: lighten(@color_button, 5%);
+}
+
+header form div.controls button:active {
+	background-color: darken(@color_button, 5%);
+}
