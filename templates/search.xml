@@ -12,8 +12,13 @@
 				<cms:text constant="site_title"/>
 			</title>
 			<cms:link href="http://fonts.googleapis.com/css?family=Roboto:400|Roboto+Slab:400" rel="stylesheet" type="text/css"/>
-			<cms:script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8xIMYmsnb2E3hWXFlkIjr3fZIbN_j8kw"/>
-			<cms:script src="_BASEURL.'/site/scripts/map.js'" cms:eval="src"/>
+
+			<!-- Google Maps -->
+			<cms:desktop>
+				<cms:script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8xIMYmsnb2E3hWXFlkIjr3fZIbN_j8kw"/>
+				<cms:script src="_BASEURL.'/site/scripts/map.js'" cms:eval="src"/>
+			</cms:desktop>
+
 			<cms:module name="head_tag" action="print_tag"/>
 		</head>
 
