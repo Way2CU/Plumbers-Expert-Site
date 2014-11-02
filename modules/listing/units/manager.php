@@ -1,6 +1,6 @@
 <?php
 
-class CompanyManager extends ItemManager {
+class Listing_CompanyManager extends ItemManager {
 	private static $_instance;
 
 	/**
