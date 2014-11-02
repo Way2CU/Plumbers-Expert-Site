@@ -17,5 +17,7 @@
 		<constant name="message_update_complete">Company database was updated. %new new entries and %existing existing updated.</constant>
 		<constant name="message_update_failed">Update failed. Please check file format.</constant>
 		<constant name="message_api_key_saved">Thank you. API key is set.</constant>
+		<constant name="message_rate_no_company">Company with specified id doesn't exist.</constant>
+		<constant name="message_rate_alreay_exists">You can not vote more than once per company!</constant>
 	</language>
 </document>
