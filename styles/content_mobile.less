@@ -10,37 +10,43 @@
  * Search results
  */
 div#results {
-	padding: 0.5em;
+	padding: 0px;
+	padding-top: 3.5em;
 	background-color: darken(@color_background, 20%);
 }
 
 div#results section > em {
 	display: block;
 
-	padding-top: 1em;
-	padding-bottom: 2em;
+	padding: 1em;
 
 	text-align: center;
 }
 
 div#results div.result {
 	display: block;
-	margin-bottom: 0.5em;
+	padding: 10px 0px;
 
 	position: relative;
 
+	border-bottom: 1px solid darken(@color_result_background, 5%);
 	background-color: @color_result_background;
 	white-space: nowrap;
 
-	color: @color_text;
+	color: @color_title;
+	font-size: 0.8em;
 }
 
 div#results div.result:nth-of-type(even) {
-	background-color: lighten(@color_result_background, 5%);
+	background-color: @color_result_background2;
 }
 
 div#results div.result:last-of-type {
 	margin-bottom: 0px;
+}
+
+div#results div.result.detailed {
+	padding-bottom: 0px;
 }
 
 div#results div.result figure {
@@ -53,58 +59,202 @@ div#results div.result figure {
 	padding: 10px;
 }
 
+div#results div.result figure img {
+	box-shadow: 0px 0px 0px 1px fade(@color_title, 10%);
+}
+
 div#results div.result div.summary {
 	display: inline-block;
 	vertical-align: middle;
-	width: 45%;
+	width: calc(~'100% - 40px - 6rem');
 	min-height: 3rem;
 
-	margin-right: 1px;
 	padding: 10px 0px;
 
-	color: lighten(@color_text, 15%);
 	cursor: pointer;
 	overflow: hidden;
 }
 
 div#results div.result div.summary h3 {
 	margin: 0px;
-	padding: 0px;
+	padding: 0.1em 0px;
+	padding-bottom: 0.2em;
 
+	position: relative;
+
+	color: @color_title;
+	font-size: 1.7em;
 	font-weight: normal;
 	line-height: 100%;
 }
 
-div#results div.result div.summary svg {
+div#results div.result div.summary h3:after {
 	position: absolute;
 	width: 1em;
-	height: 1em;
-	top: 50%;
-	right: 10px;
+	height: 100%;
+	right: 0px;
+	top: 0px;
+	content: '';
 
-	margin-top: -0.5em;
-	fill: @color_text;
-
-	transition: 0.5s transform;
+	background-image: linear-gradient(90deg, fade(@color_result_background, 0%), @color_result_background);
 }
 
-div#results div.result.promoted div.summary svg {
-	fill: @color_selection_text;
+div#results div.result:nth-of-type(even) div.summary h3:after {
+	background-image: linear-gradient(90deg, fade(@color_result_background2, 0%), @color_result_background2);
 }
 
-div#results div.result.detailed div.summary svg {
-	transform: scaleY(-1);
+div#results div.result div.distance {
+	line-height: 100%;
 }
 
-div#results div.result div.call_to_action {
+div#results div.result div.distance svg {
 	display: inline-block;
 	vertical-align: middle;
-	width: calc(~'55% - 62px - 3rem');
-	padding: 10px;
+	width: 1em;
+	height: 1em;
+
+	margin-right: 2px;
+	margin-top: -2px;
+	fill: currentcolor;
+}
+
+div#results div.result > a {
+	position: absolute;
+	right: 10px;
+	top: 1.8em;
+
+	@percent: 50%;
+	border-radius: 50%;
+	background-color: fade(@color_title, @percent);
+	box-shadow: 0px 0px 0px 1px fade(@color_title, @percent);
+
+	text-decoration: none;
+	line-height: 0px;
+}
+
+div#results div.result > a svg {
+	width: 2.5rem;
+	height: 2.5rem;
+
+	fill: @color_result_background;
+}
+
+div#results div.result:nth-of-type(even) > a svg {
+	fill: @color_result_background2;
+}
+
+div#results div.result > a:hover {
+	background-color: lighten(@color_button, 5%);
 }
 
 div#results div.result div.details {
+	max-height: 0px;
+
 	opacity: 0;
 	overflow: hidden;
-	max-height: 0px;
+
+	transition: opacity 1s;
+}
+
+div#results div.result.detailed div.details {
+	opacity: 1;
+	max-height: none;
+}
+
+div#results div.result div.details section {
+	padding: 1em;
+	white-space: normal;
+
+	background-color: @color_details;
+	color: @color_details_text;
+}
+
+div#results div.result div.details address {
+	display: block;
+	padding: 1em;
+	padding-top: 0em;
+
+	font-size: 1.5em;
+	font-style: normal;
+	text-align: center;
+}
+
+div#results div.result div.details section > a {
+	display: block;
+
+	margin-bottom: 10px;
+	padding: 0.5em;
+
+	border-radius: @control_border_radius;
+	background-color: @color_selection;
+
+	color: @color_selection_text;
+	font-size: 2em;
+	text-align: center;
+	text-decoration: none;
+	line-height: 100%;
+}
+
+div#results div.result div.details section > a svg {
+	display: inline-block;
+	vertical-align: middle;
+	width: 1em;
+	height: 1em;
+
+	margin-right: 5px;
+	margin-top: -3px;
+
+	fill: @color_selection_text;
+}
+
+div#results div.result div.rating {
+	padding-bottom: 1em;
+
+	color: @color_title;
+	font-size: 1rem;
+	text-align: center;
+}
+
+div#results div.result div.rating a {
+	display: inline-block;
+	min-width: 50px;
+
+	margin-right: 10px;
+	padding: 0.5em 1em;
+
+	border-radius: @control_border_radius;
+
+	color: @color_button_text;
+	text-decoration: none;
+}
+
+div#results div.result div.rating a.rate_up {
+	background-color: mix(@color_button, green, 60%);
+}
+
+div#results div.result div.rating a.rate_down {
+	background-color: mix(@color_button, red, 50%);
+}
+
+div#results div.result div.rating a svg {
+	display: inline-block;
+	vertical-align: middle;
+	width: 1.2em;
+	height: 1.2em;
+	fill: @color_button_text;
+
+	margin-right: 5px;
+
+	position: relative;
+	top: -3px;
+
+	transition: fill 0.3s;
+}
+
+div#results div.result div.rating a:hover svg {
+	fill: lighten(@color_title, 20%);
+}
+
+div#results div.result div.rating a:nth-of-type(2) svg {
+	top: 2px;
 }

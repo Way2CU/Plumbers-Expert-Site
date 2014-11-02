@@ -42,15 +42,15 @@ div.features_container div.feature h3:before {
 }
 
 div.features_container div.feature:nth-child(1) h3 {
-	background-image: url(../images/icon-search.svg);
+	background-image: url(../images/icon_search.svg);
 }
 
 div.features_container div.feature:nth-child(2) h3 {
-	background-image: url(../images/icon-phone.svg);
+	background-image: url(../images/icon_phone.svg);
 }
 
 div.features_container div.feature:nth-child(3) h3 {
-	background-image: url(../images/icon-truck.svg);
+	background-image: url(../images/icon_truck.svg);
 }
 
 div.features_container div.feature p {
@@ -101,6 +101,10 @@ div#results div.result figure {
 
 	margin: 0px;
 	padding: 10px;
+}
+
+div#results div.result figure img {
+	box-shadow: 0px 0px 0px 1px fade(@color_title, 10%);
 }
 
 div#results div.result div.summary {
@@ -155,25 +159,43 @@ div#results div.result div.summary h3 {
 	padding: 0px;
 	padding-bottom: 5px;
 
+	position: relative;
+
 	color: @color_title;
 	font-weight: normal;
 	line-height: 100%;
+
+	overflow: hidden;
+}
+
+div#results div.result div.summary h3:after {
+	position: absolute;
+	width: 3em;
+	height: 100%;
+	right: 0px;
+	top: 0px;
+	content: '';
+
+	@new_color: darken(@color_result_background, 5%);
+	background-image: linear-gradient(90deg, fade(@new_color, 0%), @new_color);
 }
 
 div#results div.result.promoted div.summary h3 {
 	color: @color_selection_text;
 }
 
-div#results div.result div.call_to_action {
-	display: inline-block;
-	vertical-align: middle;
-	width: calc(~'55% - 62px - 3rem');
-	padding: 10px;
+div#results div.result.promoted div.summary h3:after {
+	background-image: linear-gradient(90deg, fade(@color_selection, 0%), @color_selection);
 }
 
-div#results div.result div.call_to_action > div {
+div#results div.result div.summary address {
+	font-style: normal;
+}
+
+div#results div.result div.information {
 	display: inline-block;
 	vertical-align: middle;
+	padding: 10px;
 }
 
 div#results div.result div.distance {
@@ -249,7 +271,7 @@ div#results div.result div.rating a:nth-of-type(2) svg {
 	top: 2px;
 }
 
-div#results div.result div.call_to_action > a {
+div#results div.result > a {
 	display: inline-block;
 	vertical-align: middle;
 
@@ -267,11 +289,11 @@ div#results div.result div.call_to_action > a {
 	transition: all 0.3s;
 }
 
-div#results div.result div.call_to_action > a:hover {
+div#results div.result > a:hover {
 	background-color: lighten(@color_button, 5%);
 }
 
-div#results div.result div.call_to_action > a svg {
+div#results div.result > a svg {
 	display: inline-block;
 	vertical-align: middle;
 	width: 1em;
