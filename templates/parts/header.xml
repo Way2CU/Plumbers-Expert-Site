@@ -21,6 +21,33 @@
 				<cms:if condition="$section == 'home' or _MOBILE_VERSION">
 					<h1><cms:text constant="slogan"/></h1>
 				</cms:if>
+
+				<cms:if condition="$section == 'search' and _MOBILE_VERSION">
+					<nav>
+						<a
+							href="javascript:void(0);"
+							class="current_location gps"
+							>
+							<svg viewBox="0 0 69 100">
+								<use
+									xlink:href="_BASEURL.'/site/images/sprites.svg#icon-pin'"
+									cms:eval="xlink:href"
+									/>
+							</svg>
+						</a>
+						<a
+							href="javascript:void(0);"
+							class="show_search_form"
+							>
+							<svg viewBox="0 0 100 100">
+								<use
+									xlink:href="_BASEURL.'/site/images/sprites.svg#icon-search'"
+									cms:eval="xlink:href"
+									/>
+							</svg>
+						</a>
+					</nav>
+				</cms:if>
 			</section>
 
 			<!-- Search form -->
