@@ -12,6 +12,7 @@
 use Core\Module;
 
 require_once('units/manager.php');
+require_once('units/log_manager.php');
 
 
 final class QueryType {
@@ -124,6 +125,10 @@ class listing extends Module {
 					$this->tag_Company($params, $children);
 					break;
 
+				case 'rate_company':
+					$this->rateCompany();
+					break;
+
 				default:
 					break;
 			}
@@ -190,6 +195,20 @@ class listing extends Module {
 
 		$db->query($sql);
 
+		$sql = "
+			CREATE TABLE IF NOT EXISTS `listing_rating_log` (
+				`id` int NOT NULL AUTO_INCREMENT,
+				`company` int NOT NULL,
+				`address` varchar(45) NOT NULL,
+				`direction` int NOT NULL DEFAULT '1',
+				`week` int NOT NULL,
+				PRIMARY KEY (`id`),
+				INDEX `index_by_company_address` (`company`, `address`),
+				INDEX `index_by_week` (`week`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
+
+		$db->query($sql);
+
 		// store empty api key
 		$this->saveSetting('api_key', '');
 	}
@@ -199,7 +218,9 @@ class listing extends Module {
 	 */
 	public function onDisable() {
 		global $db;
-		$db->drop_tables(array('listing_companies'));
+
+		$tables = array('listing_companies', 'listing_rating_log');
+		$db->drop_tables($tables);
 	}
 
 	/**
@@ -249,7 +270,7 @@ class listing extends Module {
 	 * Update database values with new ones.
 	 */
 	private function updateDatabase_Commit() {
-		$manager = CompanyManager::getInstance();
+		$manager = Listing_CompanyManager::getInstance();
 		$csv_data = $this->parseUpdateFile($_FILES['update_file']['tmp_name']);
 		$number_updated = 0;
 		$number_inserted = 0;
@@ -283,7 +304,7 @@ class listing extends Module {
 						'phone'				=> $row[8],
 						'promotion'			=> $row[12],
 						'promotion_date'	=> $date,
-						'description'		=> $row[14],
+						'description'		=> strip_tags($row[14], '<br><wbr><b><i><u><strong><em><li><ul><ol>'),
 						'active'			=> 1
 					);
 
@@ -406,6 +427,106 @@ class listing extends Module {
 		}
 
 		return $result;
+	}
+
+	/**
+	 * Remove old rating log records.
+	 */
+	public function purgeOldRecords() {
+		$manager = Listing_LogManager::getInstance();
+		$manager->deleteData(array(
+			'week' => array(
+				'operator'	=> '<>',
+				'value'		=> date('W')
+			)
+		));
+	}
+
+	/**
+	 * Save company rating change.
+	 */
+	private function rateCompany() {
+		$manager = Listing_CompanyManager::getInstance();
+		$log_manager = Listing_LogManager::getInstance();
+
+		// prepare variables
+		$company_id = fix_id($_REQUEST['id']);
+		$direction = is_numeric($_REQUEST['positive']) ? $_REQUEST['positive'] : 1;
+		$result = array(
+				'error'		=> false,
+				'message'	=> '',
+				'company'	=> null,
+				'likes'		=> 0,
+				'dislikes'	=> 0
+			);
+
+		// get company for specified id
+		$company = $manager->getSingleItem($manager->getFieldNames(), array('id' => $company_id));
+
+		trigger_error($direction, E_USER_NOTICE);
+
+		// no company with that id, bail
+		if (!is_object($company)) {
+			$result['error'] = true;
+			$result['message'] = $this->getLanguageConstant('message_rate_no_company');
+			print json_encode($result);
+			return;
+		}
+
+		// set company value for response
+		$result['company'] = $company->id;
+
+		// remove old rating log records
+		$this->purgeOldRecords();
+
+		// check if user already rated this company
+		$log = $log_manager->getSingleItem(
+				$log_manager->getFieldNames(),
+				array(
+					'company'	=> $company_id,
+					'address'	=> $_SERVER['REMOTE_ADDR']
+				)
+			);
+		$likes = $company->likes;
+		$dislikes = $company->dislikes;
+
+		if (!is_object($log)) {
+			// no rating, record a new one
+			$likes += $direction > 0 ? 1 : 0;
+			$dislikes += $direction < 0 ? 1 : 0;
+
+			// prepare log data
+			$data = array(
+				'company'	=> $company->id,
+				'address'	=> $_SERVER['REMOTE_ADDR'],
+				'direction'	=> $direction,
+				'week'		=> date('W')
+			);
+
+			// log vote
+			$log_manager->insertData($data);
+
+			// update company rating
+			$manager->updateData(
+				array(
+					'likes'		=> $likes,
+					'dislikes'	=> $dislikes
+				),
+				array(
+					'id'	=> $company->id
+				)
+			);
+
+			// update response
+			$result['likes'] = $likes;
+			$result['dislikes'] = $dislikes;
+
+		} else {
+			$result['error'] = true;
+			$result['message'] = $this->getLanguageConstant('message_rate_alreay_exists');
+		}
+
+		print json_encode($result);
 	}
 
 	/**
