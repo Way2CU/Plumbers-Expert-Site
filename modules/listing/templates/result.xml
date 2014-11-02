@@ -23,19 +23,26 @@
 		<div class="summary">
 			<h3><cms:var name="$params['name']"/></h3>
 
-			<cms:if condition="!empty($params['address'])">
-				<cms:var name="$params['address']"/><cms:raw text=", "/>
-			</cms:if>
-			<cms:var name="$params['city']"/><cms:raw text=", "/>
-			<cms:var name="$params['state']"/>
+			<!-- Company address -->
+			<cms:desktop>
+				<address>
+					<cms:if condition="!empty($params['address'])">
+						<cms:var name="$params['address']"/><cms:raw text=", "/>
+					</cms:if>
+					<cms:var name="$params['city']"/><cms:raw text=",&amp;nbsp;"/>
+					<cms:var name="$params['state']"/>
+				</address>
 
-			<svg viewBox="0 0 115 100">
-				<use xlink:href="#icon-triangle"/>
-			</svg>
-		</div>
+				<svg viewBox="0 0 115 100">
+					<use
+						xlink:href="_BASEURL.'/site/images/sprites.svg#icon-triangle'"
+						cms:eval="xlink:href"
+						/>
+				</svg>
+			</cms:desktop>
 
-		<div class="call_to_action">
-			<div>
+			<!-- Distance from current location -->
+			<cms:mobile>
 				<div class="distance">
 					<svg viewBox="0 0 69 100">
 						<use
@@ -46,7 +53,24 @@
 					<cms:var name="$params['distance']"/>
 					<cms:text constant="label_distance"/>
 				</div>
+			</cms:mobile>
+		</div>
 
+		<!-- Details shown on desktop version -->
+		<cms:desktop>
+			<div class="information">
+				<!-- Distance from current location -->
+				<div class="distance">
+					<svg viewBox="0 0 69 100"> <use
+							xlink:href="_BASEURL.'/site/images/sprites.svg#icon-pin'"
+							cms:eval="xlink:href"
+							/>
+					</svg>
+					<cms:var name="$params['distance']"/>
+					<cms:text constant="label_distance"/>
+				</div>
+
+				<!-- Company user rating -->
 				<div class="rating">
 					<span><cms:text constant="label_rate_us"/></span>
 					<a
@@ -54,6 +78,7 @@
 						title="rate_up"
 						class="rate_up"
 						data-company="$params['id']"
+						data-direction="1"
 						cms:eval="data-company"
 						cms:constant="title"
 						>
@@ -63,7 +88,7 @@
 								cms:eval="xlink:href"
 								/>
 						</svg>
-						<cms:var name="$params['likes']"/>
+						<span><cms:var name="$params['likes']"/></span>
 					</a>
 
 					<a
@@ -71,6 +96,7 @@
 						title="rate_down"
 						class="rate_down"
 						data-company="$params['id']"
+						data-direction="-1"
 						cms:eval="data-company"
 						cms:constant="title"
 						>
@@ -80,29 +106,98 @@
 								cms:eval="xlink:href"
 								/>
 						</svg>
-						<cms:var name="$params['dislikes']"/>
+						<span><cms:var name="$params['dislikes']"/></span>
 					</a>
 				</div>
 			</div>
+		</cms:desktop>
 
-			<a
-				href="'tel:'.urlencode($params['phone'])"
-				cms:eval="href"
-				>
-				<svg viewBox="0 0 100 100">
-					<use
-						xlink:href="_BASEURL.'/site/images/sprites.svg#icon-phone'"
-						cms:eval="xlink:href"
-						/>
-				</svg>
+		<!-- Phone number -->
+		<a
+			href="'tel:'.urlencode($params['phone'])"
+			cms:eval="href"
+			>
+			<svg viewBox="0 0 100 100">
+				<use
+					xlink:href="_BASEURL.'/site/images/sprites.svg#icon-phone'"
+					cms:eval="xlink:href"
+					/>
+			</svg>
+
+			<cms:desktop>
 				<cms:var name="$params['phone']"/>
-			</a>
-		</div>
+			</cms:desktop>
+		</a>
 
 		<div class="details">
-			<div>
+			<section>
+				<!-- Company details shown on mobile version -->
+				<cms:mobile>
+					<!-- Address -->
+					<address>
+						<cms:if condition="!empty($params['address'])">
+							<cms:var name="$params['address']"/><cms:raw text=", "/>
+						</cms:if>
+						<cms:var name="$params['city']"/><cms:raw text=",&amp;nbsp;"/>
+						<cms:var name="$params['state']"/>
+					</address>
+
+					<!-- Phone number -->
+					<a
+						href="'tel:'.urlencode($params['phone'])"
+						cms:eval="href"
+						>
+						<svg viewBox="0 0 100 100">
+							<use
+								xlink:href="_BASEURL.'/site/images/sprites.svg#icon-phone'"
+								cms:eval="xlink:href"
+								/>
+						</svg>
+						<cms:var name="$params['phone']"/>
+					</a>
+
+					<!-- Company user rating -->
+					<div class="rating">
+						<a
+							href="javacript:void(0);"
+							title="rate_up"
+							class="rate_up"
+							data-company="$params['id']"
+							data-direction="1"
+							cms:eval="data-company"
+							cms:constant="title"
+							>
+							<svg viewBox="0 0 99 100">
+								<use
+									xlink:href="_BASEURL.'/site/images/sprites.svg#icon-like'"
+									cms:eval="xlink:href"
+									/>
+							</svg>
+							<span><cms:var name="$params['likes']"/></span>
+						</a>
+
+						<a
+							href="javacript:void(0);"
+							title="rate_down"
+							class="rate_down"
+							data-company="$params['id']"
+							data-direction="-1"
+							cms:eval="data-company"
+							cms:constant="title"
+							>
+							<svg viewBox="0 0 99 100">
+								<use
+									xlink:href="_BASEURL.'/site/images/sprites.svg#icon-dislike'"
+									cms:eval="xlink:href"
+									/>
+							</svg>
+							<span><cms:var name="$params['dislikes']"/></span>
+						</a>
+					</div>
+				</cms:mobile>
+
 				<cms:var name="$params['description']"/>
-			</div>
+			</section>
 		</div>
 	</div>
 </document>
