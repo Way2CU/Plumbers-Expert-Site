@@ -463,8 +463,6 @@ class listing extends Module {
 		// get company for specified id
 		$company = $manager->getSingleItem($manager->getFieldNames(), array('id' => $company_id));
 
-		trigger_error($direction, E_USER_NOTICE);
-
 		// no company with that id, bail
 		if (!is_object($company)) {
 			$result['error'] = true;
