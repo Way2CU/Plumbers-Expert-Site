@@ -12,31 +12,47 @@ var TowExpert = TowExpert || {};
 function Search() {
 	var self = this;
 
+	self.header = null;
 	self.search_form = null;
 	self.input_field = null;
 	self.gps_links = null;
 	self.vehicle_type = null;
 	self.results = null;
+	self.show_form = null;
+	self.rate_up = null;
+	self.rate_down = null;
 
 	/**
 	 * Complete object initialization.
 	 */
 	self._init = function() {
-		self.search_form = $('header form');
+		self.header = $('header');
+		self.search_form = self.header.find('form');
 		self.vehicle_type = self.search_form.find('input[name=type]')
 		self.input_field = self.search_form.find('input[name=query]');
 		self.gps_links = $('a.gps');
+		self.show_form = self.header.find('a.show_search_form');
 		self.results = $('div#results div.result');
+		self.rate_up = self.results.find('a.rate_up');
+		self.rate_down = self.results.find('a.rate_down');
 
 		// connect events
 		self.gps_links.click(self._handle_gps_click);
+		self.show_form.click(self._handle_show_form_click);
 		self.vehicle_type.change(self._handle_type_change);
 		self.input_field
 				.focus(self._handle_input_focus)
 				.blur(self._handle_input_blur);
 		self.results.find('div.summary').click(self._handle_result_click);
+		self.rate_up.click(self._handle_rate_click);
+		self.rate_down.click(self._handle_rate_click);
 	}
 
+	/**
+	 * Handle clicking on result.
+	 *
+	 * @param object
+	 */
 	self._handle_result_click = function(event) {
 		event.preventDefault();
 		var summary = $(this);
@@ -44,6 +60,59 @@ function Search() {
 
 		self.results.not(result).removeClass('detailed');
 		result.toggleClass('detailed');
+	};
+
+	/**
+	 * Handle clicking on rate button.
+	 *
+	 * @param object event
+	 */
+	self._handle_rate_click = function(event) {
+		event.preventDefault();
+
+		// prepare call
+		var button = $(this);
+		var company = button.data('company');
+		var direction = button.data('direction');
+		var communicator = new Communicator('listing');
+		var data = {
+				'id': company,
+				'positive': direction
+			};
+
+		// send data to server
+		communicator
+			.on_success(self._handle_rate_success)
+			.on_error(self._handle_rate_error)
+			.get('rate_company', data);
+	};
+
+	/**
+	 * Handle server response.
+	 *
+	 * @param object data
+	 */
+	self._handle_rate_success = function(data) {
+		if (data.error)
+			return;
+
+		// find content to update
+		var likes = $('a.rate_up[data-company=' + data.company + ']').find('span');
+		var dislikes = $('a.rate_down[data-company=' + data.company + ']').find('span');
+
+		// update elements
+		likes.html(data.likes);
+		dislikes.html(data.dislikes);
+	};
+
+	/**
+	 * Hanlde error during communication with server.
+	 *
+	 * @param object xhr
+	 * @param string error_code
+	 * @param string message
+	 */
+	self._handle_rate_error = function(xhr, error_code, message) {
 	};
 
 	/**
@@ -85,6 +154,16 @@ function Search() {
 	};
 
 	/**
+	 * Handle clicking on show form link.
+	 *
+	 * @param object event
+	 */
+	self._handle_show_form_click = function(event) {
+		event.preventDefault();
+		self.search_form.toggleClass('visible');
+	};
+
+	/**
 	 * Handle clicking on locate link.
 	 *
 	 * @param object event
@@ -95,6 +174,9 @@ function Search() {
 		// make sure geolocation is supported
 		if (typeof navigator.geolocation == 'undefined')
 			return;
+
+		// show form
+		self.search_form.addClass('visible');
 
 		// animate gps links while we search for location
 		self.gps_links.addClass('active');
