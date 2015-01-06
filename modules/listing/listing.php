@@ -650,7 +650,7 @@ class listing extends Module {
 					'distance'		=> $distance >= 5 ? round($distance) : round($distance, 1),
 					'likes'			=> $company->likes,
 					'dislikes'		=> $company->dislikes,
-					'phone'			=> '054-222-'.rand(1, 1000), // $company->phone ||,
+					'phone'			=> $company->phone,
 					'description'	=> $company->description,
 					'promoted'		=> $company->promoted
 					);
@@ -690,7 +690,7 @@ class listing extends Module {
 						'distance'		=> $distance >= 5 ? round($distance) : round($distance, 1),
 						'likes'			=> $company->likes,
 						'dislikes'		=> $company->dislikes,
-						'phone'			=> '054-222-'.rand(1, 1000), // $company->phone ||,
+						'phone'			=> $company->phone,
 						'description'	=> $company->description,
 						'promoted'		=> $company->promoted
 						);
