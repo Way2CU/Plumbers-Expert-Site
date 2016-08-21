@@ -1,6 +1,6 @@
 ---
 site:
-  domain: plumbers.expert
+  domain: plumbers.express
   # subdomain: test
   # alias: domain.com
   root: httpdocs
