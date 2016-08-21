@@ -1,13 +1,15 @@
 ---
 site:
-  domain: tow.expert
-  make_alias: false
+  domain: plumbers.expert
+  # subdomain: test
+  # alias: domain.com
   root: httpdocs
-  username: "tow_my_ass"
-  caracal_branch: develop
-  ip_address: "74.208.153.118"
+  username: "plumb_my_ass"
+  caracal_branch: release
+  # ip_address: 0.0.0.0
   # owner: Some Person
   # plan: Unlimited
+  # database_type: 'mysql'
 
 local_site_directory: ../site
 subscription_directory: "{{ plesk_vhost_directory }}/{{ site.domain }}"
