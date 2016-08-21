@@ -25,26 +25,38 @@
 							 on text is through SVG. It's really fiddly so care and testing
 							 is needed before changing things here.
 						-->
-						<svg width="100%" fill="url(#header-gradient)">
-							<defs>
-								<linearGradient
-									id="header-gradient"
-									x1="0%"
-									x2="0%"
-									y1="0%"
-									y2="100%"
-									gradientUnits="userSpaceOnUse"
-									>
-									<stop offset="0%" stop-color="#005ca9"/>
-									<stop offset="100%" stop-color="#324a61"/>
-								</linearGradient>
-							</defs>
+						<cms:desktop>
+							<svg
+								width="100%"
+								height="_DESKTOP_VERSION ? '2em' : '1em'"
+								fill="url(#header-gradient)"
+								cms:eval="height"
+								>
+								<defs>
+									<linearGradient
+										id="header-gradient"
+										x1="0%"
+										x2="0%"
+										y1="0%"
+										y2="100%"
+										gradientUnits="userSpaceOnUse"
+										>
+										<stop offset="0%" stop-color="#005ca9"/>
+										<stop offset="100%" stop-color="#324a61"/>
+									</linearGradient>
+								</defs>
 
-							<text x="0%" y="50%">
-								<tspan x="0" dy="0"><cms:text constant="slogan"/></tspan>
-								<tspan x="20%" dy="1em"><cms:text constant="slogan2"/></tspan>
-							</text>
-						</svg>
+								<text x="0%" y="50%">
+									<tspan x="0" dy="0"><cms:text constant="slogan"/></tspan>
+									<tspan x="20%" dy="1em"><cms:text constant="slogan2"/></tspan>
+								</text>
+							</svg>
+						</cms:desktop>
+						<cms:mobile>
+							<cms:text constant="slogan"/>
+							<cms:raw text=" "/>
+							<cms:text constant="slogan2"/>
+						</cms:mobile>
 					</h1>
 				</cms:if>
 

@@ -6,25 +6,6 @@
  * Authors: Mladen Mijatov
  */
 
-.vehicle_type_icon_size(@height) {
-	@width: 1.4 * @height;
-	width: unit(@width, px);
-	height: unit(@height, px);
-	background-size: unit(@width * 6, px) unit(@height, px);
-}
-
-.vehicle_type_icon_position(@height, @index, @selected) when (@selected = true) {
-	@width: 1.4 * @height;
-	@real_index: @index * 2;
-	background-position: unit(-@real_index * @width, px) 0px;
-}
-
-.vehicle_type_icon_position(@height, @index, @selected) when (default()) {
-	@width: 1.4 * @height;
-	@real_index: @index * 2;
-	background-position: unit(-(@real_index + 1) * @width, px) 0px;
-}
-
 @keyframes gps_animation {
 	from { fill: transparent; }
 	to { fill: @color_button; }
@@ -56,7 +37,7 @@ header section {
 
 header.home section {
 	padding-top: 3em;
-	padding-bottom: 3em;
+	padding-bottom: 1em;
 	text-align: center;
 }
 
@@ -80,16 +61,13 @@ header a.logo {
 }
 
 header.home a.logo {
-	color: @color_title;
-}
-
-header.home a.logo {
 	margin-bottom: 0.4em;
 	padding-left: 0px;
-	padding-top: 3.4em;
+	padding-top: 5em;
 
-	background-size: 3em;
+	background-size: 5em;
 	background-position: center top;
+	color: @color_title;
 }
 
 header h1 {
@@ -99,10 +77,9 @@ header h1 {
 	padding: 0px;
 
 	color: @color_button_text;
-	font-size: 0.7em;
+	font-size: 1em;
 	font-family: Roboto;
 	line-height: 100%;
-	text-transform: uppercase;
 }
 
 header.home h1 {
@@ -118,10 +95,10 @@ header form {
 	padding: 0em 1em;
 
 	background-color: @color_form;
-	color: @color_header_text;
 	text-align: center;
 
 	overflow: hidden;
+	color: @color_header_text;
 	transition: padding 0.5s, max-height 0.5s;
 }
 
@@ -133,125 +110,16 @@ header form.visible {
 header.home form {
 	max-height: none;
 	padding-top: 2em;
-	padding-bottom: 3em;
+	padding-bottom: 2em;
+}
+
+header form span {
+	display: block;
+	margin-bottom: 0.2em;
 }
 
 header form label {
 	display: inline-block;
-}
-
-header form div.vehicle_type {
-	display: block;
-	margin-bottom: 10px;
-}
-
-header.home form div.vehicle_type {
-	margin-bottom: 20px;
-}
-
-header form div.vehicle_type > span {
-	display: none;
-}
-
-header.home form > span,
-header.home form div.vehicle_type > span {
-	display: block;
-	padding-bottom: 5px;
-}
-
-header form div.vehicle_type label {
-	margin-right: 10px;
-}
-
-header form div.vehicle_type label:last-of-type {
-	margin-right: 0px;
-}
-
-header form div.vehicle_type input {
-	display: none;
-}
-
-header form div.vehicle_type label span {
-	display: inline-block;
-	padding: 0px 8px;
-
-	border-radius: @control_border_radius;
-	background-color: fade(@color_element, 30%);
-	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-
-	font-size: 0px;
-	transition: all 0.3s;
-}
-
-header form div.vehicle_type label span:after {
-	display: inline-block;
-	content: '';
-	.vehicle_type_icon_size(41px);
-
-	background-image: url(../images/vehicle_type_icons.svg);
-	background-repeat: no-repeat;
-	transition: all 0.3s;
-}
-
-header.home form div.vehicle_type label span:after {
-	.vehicle_type_icon_size(50px);
-}
-
-header form div.vehicle_type label span:hover,
-header form div.vehicle_type input:focus + span {
-	background-color: mix(fade(@color_element, 30%), fade(@color_selection, 70%));
-}
-
-header form div.vehicle_type input:checked + span {
-	background-color: @color_selection;
-}
-
-header form div.vehicle_type input[value=car] + span:after {
-	.vehicle_type_icon_position(41, 0, false);
-}
-
-header form div.vehicle_type input[value=car]:checked + span:after {
-	.vehicle_type_icon_position(41, 0, true);
-}
-
-header form div.vehicle_type input[value=motorcycle] + span:after {
-	.vehicle_type_icon_position(41, 1, false);
-}
-
-header form div.vehicle_type input[value=motorcycle]:checked + span:after {
-	.vehicle_type_icon_position(41, 1, true);
-}
-
-header form div.vehicle_type input[value=truck] + span:after {
-	.vehicle_type_icon_position(41, 2, false);
-}
-
-header form div.vehicle_type input[value=truck]:checked + span:after {
-	.vehicle_type_icon_position(41, 2, true);
-}
-
-header.home form div.vehicle_type input[value=car] + span:after {
-	.vehicle_type_icon_position(50, 0, false);
-}
-
-header.home form div.vehicle_type input[value=car]:checked + span:after {
-	.vehicle_type_icon_position(50, 0, true);
-}
-
-header.home form div.vehicle_type input[value=motorcycle] + span:after {
-	.vehicle_type_icon_position(50, 1, false);
-}
-
-header.home form div.vehicle_type input[value=motorcycle]:checked + span:after {
-	.vehicle_type_icon_position(50, 1, true);
-}
-
-header.home form div.vehicle_type input[value=truck] + span:after {
-	.vehicle_type_icon_position(50, 2, false);
-}
-
-header.home form div.vehicle_type input[value=truck]:checked + span:after {
-	.vehicle_type_icon_position(50, 2, true);
 }
 
 header form > label {
@@ -336,7 +204,7 @@ header form div.controls button svg {
 	width: 1.5em;
 	height: 1.5em;
 
-	fill: @color_header_text;
+	fill: @color_button_text;
 }
 
 header form div.controls button:focus,
