@@ -6,7 +6,7 @@ site:
   root: httpdocs
   username: "plumb_my_ass"
   caracal_branch: release
-  # ip_address: 0.0.0.0
+  ip_address: 74.208.172.190
   # owner: Some Person
   # plan: Unlimited
   # database_type: 'mysql'
