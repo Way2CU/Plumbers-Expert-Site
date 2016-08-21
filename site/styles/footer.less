@@ -13,38 +13,37 @@ footer {
 }
 
 footer div.inner_wrap {
-	min-height: 700px;
+	min-height: 750px;
 }
 
 footer div.copyright {
-	background-color: #aaaaaa;
-	background-image: url(../images/footer_lower_background.jpg);
-	background-repeat: repeat-x;
-	background-position: center top;
+	background-color: @color_footer;
 }
 
 footer div.copyright div.inner_wrap {
-	min-height: 300px;
-	padding-top: 70px;
+	min-height: 180px;
 }
 
 footer div.inner_wrap div.content_container {
 	position: absolute;
-	max-width: 700px;
+	max-width: 400px;
 	top: 55px;
 	right: 400px;
 
 	color: @color_title;
-	text-align: right;
+	text-align: center;
 }
 
 footer div.inner_wrap div.content_container h2 {
 	margin: 0px;
+	margin-top: 50px;
+	margin-bottom: 20px;
 }
 
 footer div.inner_wrap div.content_container span {
 	display: block;
 	font-size: 1.2rem;
+	margin-bottom: 20px;
 }
 
 footer div.inner_wrap div.content_container div {
@@ -63,10 +62,6 @@ footer div.inner_wrap div.content_container div {
 	background-repeat: no-repeat, no-repeat;
 	background-position: center 175px, center 10px;
 	background-size: 70% auto;
-}
-
-footer div.inner_wrap div.content_container:hover ~ div.mobile_pic {
-	background-image: url(../images/qr_slide.jpg);
 }
 
 footer div.inner_wrap div.mobile_pic {
@@ -247,7 +242,7 @@ footer form button:active {
 footer small {
 	position: absolute;
 	left: 0px;
-	top: 200px;
+	bottom: 20px;
 
 	padding-left: 3.2em;
 

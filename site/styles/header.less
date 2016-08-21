@@ -6,35 +6,20 @@
  * Authors: Mladen Mijatov, Khalid Sawalhi
  */
 
-.vehicle_type_icon_size(@height) {
-	@width: 1.4 * @height;
-	width: unit(@width, px);
-	height: unit(@height, px);
-	background-size: unit(@width * 6, px) unit(@height, px);
-}
-
-.vehicle_type_icon_position(@height, @index, @selected) when (@selected = true) {
-	@width: 1.4 * @height;
-	@real_index: @index * 2;
-	background-position: unit(-@real_index * @width, px) 0px;
-}
-
-.vehicle_type_icon_position(@height, @index, @selected) when (default()) {
-	@width: 1.4 * @height;
-	@real_index: @index * 2;
-	background-position: unit(-(@real_index + 1) * @width, px) 0px;
-}
-
 @keyframes gps_animation {
 	from { fill: transparent; }
 	to { fill: @color_button; }
 }
 
 header {
-	background-image: url(../images/header_background.jpg);
+	background-image: url(../images/header_background_small.jpg);
 	background-repeat: no-repeat;
 	background-position: center center;
 	overflow: hidden;
+}
+
+header.home {
+	background-image: url(../images/header_background.jpg);
 }
 
 header div.inner_wrap {
@@ -57,37 +42,29 @@ header:not(.home) div.inner_wrap:after {
 	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-header.home:before {
-	position: absolute;
-	width: 60%;
-	max-width: 1066px;
-	height: 100%;
-	right: 0px;
-	top: 0px;
-	content: '';
-
-	background-image: url(../images/header_shade.svg);
-	background-repeat: no-repeat;
-	background-position: left top;
-	background-size: 1066px 600px;
-}
-
 header section {
 	position: absolute;
-	top: 30px;
+	top: 15px;
 	left: 0px;
+}
+
+header.home section {
+	position: absolute;
+	top: 30px;
+	right: 0px;
+	left: auto;
 }
 
 header a.logo {
 	display: block;
 
-	padding-left: 55px;
-	padding-top: 0.5em;
-	padding-bottom: 0.5em;
+	padding-left: 110px;
+	padding-top: 1em;
+	padding-bottom: 1em;
 
 	background-image: url(../images/logo.svg);
 	background-repeat: no-repeat;
-	background-size: 45px 45px;
+	background-size: 100px 100px;
 	background-position: left center;
 
 	color: @color_header_text;
@@ -110,7 +87,7 @@ header.home a.logo {
 
 header h1 {
 	display: block;
-	width: 400px;
+	width: 450px;
 
 	margin: 0px;
 	padding: 0px;
@@ -118,7 +95,7 @@ header h1 {
 	color: @color_header_text;
 	font-size: 3.2em;
 	text-transform: uppercase;
-	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+	text-align: center;
 }
 
 /**
@@ -129,13 +106,17 @@ header form {
 	position: absolute;
 	right: 0px;
 	top: 40px;
+	bottom: auto;
 
 	color: @color_header_text;
 }
 
 header.home form {
-	top: 170px;
-	right: 100px;
+	top: auto;
+	bottom: 40px;
+	right: 50px;
+
+	text-align: center;
 }
 
 header form > span {
@@ -150,122 +131,6 @@ header.home form > span {
 header form label {
 	display: inline-block;
 	vertical-align: top;
-}
-
-header form div.vehicle_type {
-	display: inline-block;
-	vertical-align: top;
-	margin-right: 40px;
-}
-
-header.home form div.vehicle_type {
-	display: block;
-	margin-bottom: 20px;
-	margin-right: 0px;
-}
-
-header form div.vehicle_type > span {
-	display: none;
-}
-
-header.home form div.vehicle_type > span {
-	display: block;
-	padding-bottom: 5px;
-}
-
-header form div.vehicle_type label {
-	margin-right: 10px;
-}
-
-header form div.vehicle_type label:last-of-type {
-	margin-right: 0px;
-}
-
-header form div.vehicle_type input {
-	display: none;
-}
-
-header form div.vehicle_type label span {
-	display: inline-block;
-	padding: 0px 8px;
-
-	border-radius: @control_border_radius;
-	background-color: fade(@color_element, 30%);
-	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-
-	font-size: 0px;
-	transition: all 0.3s;
-}
-
-header form div.vehicle_type label span:after {
-	display: inline-block;
-	content: '';
-	.vehicle_type_icon_size(41px);
-
-	background-image: url(../images/vehicle_type_icons.svg);
-	background-repeat: no-repeat;
-	transition: all 0.3s;
-}
-
-header.home form div.vehicle_type label span:after {
-	.vehicle_type_icon_size(50px);
-}
-
-header form div.vehicle_type label span:hover,
-header form div.vehicle_type input:focus + span {
-	background-color: mix(fade(@color_element, 30%), fade(@color_selection, 70%));
-}
-
-header form div.vehicle_type input:checked + span {
-	background-color: @color_selection;
-}
-
-header form div.vehicle_type input[value=car] + span:after {
-	.vehicle_type_icon_position(41, 0, false);
-}
-
-header form div.vehicle_type input[value=car]:checked + span:after {
-	.vehicle_type_icon_position(41, 0, true);
-}
-
-header form div.vehicle_type input[value=motorcycle] + span:after {
-	.vehicle_type_icon_position(41, 1, false);
-}
-
-header form div.vehicle_type input[value=motorcycle]:checked + span:after {
-	.vehicle_type_icon_position(41, 1, true);
-}
-
-header form div.vehicle_type input[value=truck] + span:after {
-	.vehicle_type_icon_position(41, 2, false);
-}
-
-header form div.vehicle_type input[value=truck]:checked + span:after {
-	.vehicle_type_icon_position(41, 2, true);
-}
-
-header.home form div.vehicle_type input[value=car] + span:after {
-	.vehicle_type_icon_position(50, 0, false);
-}
-
-header.home form div.vehicle_type input[value=car]:checked + span:after {
-	.vehicle_type_icon_position(50, 0, true);
-}
-
-header.home form div.vehicle_type input[value=motorcycle] + span:after {
-	.vehicle_type_icon_position(50, 1, false);
-}
-
-header.home form div.vehicle_type input[value=motorcycle]:checked + span:after {
-	.vehicle_type_icon_position(50, 1, true);
-}
-
-header.home form div.vehicle_type input[value=truck] + span:after {
-	.vehicle_type_icon_position(50, 2, false);
-}
-
-header.home form div.vehicle_type input[value=truck]:checked + span:after {
-	.vehicle_type_icon_position(50, 2, true);
 }
 
 header form > label {
@@ -368,7 +233,7 @@ header.home form div.controls button svg {
 	top: 50%;
 
 	margin-top: -1.5em / 2;
-	fill: @color_header_text;
+	fill: @color_button_text;
 }
 
 header form div.controls button:focus,

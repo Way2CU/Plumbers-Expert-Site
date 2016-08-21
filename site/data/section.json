@@ -1,3 +1,4 @@
 {
-	"/": "home.xml"
+	"/": "home.xml",
+	"/search": "search.xml"
 }

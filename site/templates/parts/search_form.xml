@@ -2,41 +2,6 @@
 <!DOCTYPE document SYSTEM "../../units/schema/language.dtd">
 <document>
 	<form method="get" action="url_Make('', 'search')" cms:eval="action">
-		<!-- Vehicle type -->
-		<div class="vehicle_type">
-			<span><cms:text constant="label_vehicle_type"/></span>
-			<label>
-				<input
-					type="radio"
-					name="type"
-					value="car"
-					checked="((isset($_REQUEST['type']) and $_REQUEST['type'] == 'car') or !isset($_REQUEST['type'])) ? 'checked' : false"
-					cms:optional="checked"
-					/>
-				<span><cms:text constant="type_car"/></span>
-			</label>
-			<label>
-				<input
-					type="radio"
-					name="type"
-					value="motorcycle"
-					checked="(isset($_REQUEST['type']) and $_REQUEST['type'] == 'motorcycle') ? 'checked' : false"
-					cms:optional="checked"
-					/>
-				<span><cms:text constant="type_motorcycle"/></span>
-			</label>
-			<label>
-				<input
-					type="radio"
-					name="type"
-					value="truck"
-					checked="(isset($_REQUEST['type']) and $_REQUEST['type'] == 'truck') ? 'checked' : false"
-					cms:optional="checked"
-					/>
-				<span><cms:text constant="type_truck"/></span>
-			</label>
-		</div>
-
 		<!-- Search query -->
 		<span><cms:text constant="label_search_query"/></span>
 		<label>

@@ -19,7 +19,33 @@
 				</a>
 
 				<cms:if condition="$section == 'home' or _MOBILE_VERSION">
-					<h1><cms:text constant="slogan"/></h1>
+					<h1>
+						<!--
+							 Only way to do cross-browser supported background gradient
+							 on text is through SVG. It's really fiddly so care and testing
+							 is needed before changing things here.
+						-->
+						<svg width="100%" fill="url(#header-gradient)">
+							<defs>
+								<linearGradient
+									id="header-gradient"
+									x1="0%"
+									x2="0%"
+									y1="0%"
+									y2="100%"
+									gradientUnits="userSpaceOnUse"
+									>
+									<stop offset="0%" stop-color="#005ca9"/>
+									<stop offset="100%" stop-color="#324a61"/>
+								</linearGradient>
+							</defs>
+
+							<text x="0%" y="50%">
+								<tspan x="0" dy="0"><cms:text constant="slogan"/></tspan>
+								<tspan x="20%" dy="1em"><cms:text constant="slogan2"/></tspan>
+							</text>
+						</svg>
+					</h1>
 				</cms:if>
 
 				<cms:if condition="$section == 'search' and _MOBILE_VERSION">
