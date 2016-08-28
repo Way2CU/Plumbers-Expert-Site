@@ -1,0 +1,16 @@
+{
+    "label_api_key": "Google API key:",
+    "label_file": "Update file:",
+    "menu_index": "Company index",
+    "menu_listing": "Listing",
+    "menu_set_api_key": "Set Google API key",
+    "menu_update": "Update database",
+    "message_api_key_saved": "Thank you. API key is set.",
+    "message_rate_alreay_exists": "You can not vote more than once per company!",
+    "message_rate_no_company": "Company with specified id doesn't exist.",
+    "message_update_complete": "Company database was updated. %new new entries and %existing existing updated.",
+    "message_update_failed": "Update failed. Please check file format.",
+    "title_api_key": "Listing: Set Google API key",
+    "title_index": "Listing: Company index",
+    "title_update": "Listing: Update company database"
+}
