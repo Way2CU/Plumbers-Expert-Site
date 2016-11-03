@@ -273,7 +273,7 @@ function Contact() {
 	 */
 	self._init = function() {
 		self.container = $('footer form');
-		self.button_contact = $('footer div.left_container a');
+		self.button_contact = $('footer div.left_container a.contact');
 		self.button_cancel = self.container.find('button[type=button]');
 
 		// connect events
