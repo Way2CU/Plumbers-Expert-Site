@@ -20,7 +20,22 @@
 				<!-- Get your company listed -->
 				<div class="left_container">
 					<cms:text constant="add_company"/>
-					<a href="javascript:void(0);">
+					<br/>
+					<!-- phone link -->
+					<a
+						href="'tel:'.urlencode(Language::getText('phone'))"
+						cms:eval="href"
+						class="phone"
+						>
+						<svg viewBox="0 0 100 100">
+							<use
+								xlink:href="_BASEURL.'/site/images/sprites.svg#icon-phone'"
+								cms:eval="xlink:href"
+								/>
+						</svg>
+						<cms:text constant="phone"/>
+					</a>
+					<a class="contact" href="javascript:void(0);">
 						<cms:text constant="contactus_link"/>
 						<svg viewBox="0 0 100 100">
 							<use
